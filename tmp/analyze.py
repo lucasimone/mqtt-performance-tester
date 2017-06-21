@@ -71,8 +71,7 @@ class mqtt_performance():
         self.num_mqtt = 0
         self.num_tcp = 0
 
-        self._parse_data()
-
+        #self._parse_data()
 
     def _parse_data(self):
 

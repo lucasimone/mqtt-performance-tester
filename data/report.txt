@@ -1,0 +1,54 @@
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
+
+ ---MQTT TEST n.1
+ |- FILENAME: data/mqtt_capture_qos_1_payload_256
+ |- PAYLOAD :256
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
+
+ ---MQTT TEST n.2
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
+
+ ---MQTT TEST n.3
+ |- FILENAME: data/mqtt_capture_qos_2_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
+
+ ---MQTT TEST n.4
+ |- FILENAME: data/mqtt_capture_qos_2_payload_256
+ |- PAYLOAD :256
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
+
+ ---MQTT TEST n.5
+ |- FILENAME: data/mqtt_capture_qos_2_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:250
+ |- PDrop:0
+ |- E2E:0
+ |- TCP Overhead:0 |- PDR: 0
+ 
