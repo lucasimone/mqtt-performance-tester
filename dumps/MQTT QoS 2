@@ -1,0 +1,409 @@
+No.     Time           Source                Destination           Protocol Length Info
+    633 7.242334591    2001:660:6602:102::5  2001:660:6602:142::10 MQTT     157    Publish Message
+
+Frame 633: 157 bytes on wire (1256 bits), 157 bytes captured (1256 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:10.921479661 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947110.921479661 seconds
+    [Time delta from previous captured frame: 0.007211485 seconds]
+    [Time delta from previous displayed frame: 0.000000000 seconds]
+    [Time since reference or first frame: 7.242334591 seconds]
+    Frame Number: 633
+    Frame Length: 157 bytes (1256 bits)
+    Capture Length: 157 bytes (1256 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 1, Ack: 1, Len: 71
+MQ Telemetry Transport Protocol
+    Publish Message
+        0011 0100 = Header Flags: 0x34 (Publish Message)
+        Msg Len: 69
+        Topic: test
+        Message Identifier: 2
+        Message: Status type: "CON" Code: "GET" MID: "43390" Accept: "unknown"
+
+No.     Time           Source                Destination           Protocol Length Info
+    680 7.813480836    2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Received
+
+Frame 680: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:11.492625906 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947111.492625906 seconds
+    [Time delta from previous captured frame: 0.000826717 seconds]
+    [Time delta from previous displayed frame: 0.571146245 seconds]
+    [Time since reference or first frame: 7.813480836 seconds]
+    Frame Number: 680
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 1, Ack: 72, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Received
+        0101 0000 = Header Flags: 0x50 (Publish Received)
+        Msg Len: 2
+        Message Identifier: 2
+
+No.     Time           Source                Destination           Protocol Length Info
+    682 7.813799030    2001:660:6602:102::5  2001:660:6602:142::10 MQTT     90     Publish Release
+
+Frame 682: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:11.492944100 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947111.492944100 seconds
+    [Time delta from previous captured frame: 0.000229861 seconds]
+    [Time delta from previous displayed frame: 0.000318194 seconds]
+    [Time since reference or first frame: 7.813799030 seconds]
+    Frame Number: 682
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 72, Ack: 5, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Release
+        0110 0010 = Header Flags: 0x62 (Publish Release)
+        Msg Len: 2
+        Message Identifier: 2
+
+No.     Time           Source                Destination           Protocol Length Info
+    730 8.365129737    2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Complete
+
+Frame 730: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:12.044274807 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947112.044274807 seconds
+    [Time delta from previous captured frame: 0.001172728 seconds]
+    [Time delta from previous displayed frame: 0.551330707 seconds]
+    [Time since reference or first frame: 8.365129737 seconds]
+    Frame Number: 730
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 5, Ack: 76, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Complete
+        0111 0000 = Header Flags: 0x70 (Publish Complete)
+        Msg Len: 2
+        Message Identifier: 2
+
+No.     Time           Source                Destination           Protocol Length Info
+   1336 15.280388996   2001:660:6602:102::5  2001:660:6602:142::10 MQTT     157    Publish Message
+
+Frame 1336: 157 bytes on wire (1256 bits), 157 bytes captured (1256 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:18.959534066 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947118.959534066 seconds
+    [Time delta from previous captured frame: 0.004918209 seconds]
+    [Time delta from previous displayed frame: 6.915259259 seconds]
+    [Time since reference or first frame: 15.280388996 seconds]
+    Frame Number: 1336
+    Frame Length: 157 bytes (1256 bits)
+    Capture Length: 157 bytes (1256 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 76, Ack: 9, Len: 71
+MQ Telemetry Transport Protocol
+    Publish Message
+        0011 0100 = Header Flags: 0x34 (Publish Message)
+        Msg Len: 69
+        Topic: test
+        Message Identifier: 3
+        Message: Status type: "CON" Code: "GET" MID: "43390" Accept: "unknown"
+
+No.     Time           Source                Destination           Protocol Length Info
+   1388 15.842872277   2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Received
+
+Frame 1388: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:19.522017347 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947119.522017347 seconds
+    [Time delta from previous captured frame: 0.000015919 seconds]
+    [Time delta from previous displayed frame: 0.562483281 seconds]
+    [Time since reference or first frame: 15.842872277 seconds]
+    Frame Number: 1388
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 9, Ack: 147, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Received
+        0101 0000 = Header Flags: 0x50 (Publish Received)
+        Msg Len: 2
+        Message Identifier: 3
+
+No.     Time           Source                Destination           Protocol Length Info
+   1390 15.843117195   2001:660:6602:102::5  2001:660:6602:142::10 MQTT     90     Publish Release
+
+Frame 1390: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:19.522262265 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947119.522262265 seconds
+    [Time delta from previous captured frame: 0.000193665 seconds]
+    [Time delta from previous displayed frame: 0.000244918 seconds]
+    [Time since reference or first frame: 15.843117195 seconds]
+    Frame Number: 1390
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 147, Ack: 13, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Release
+        0110 0010 = Header Flags: 0x62 (Publish Release)
+        Msg Len: 2
+        Message Identifier: 3
+
+No.     Time           Source                Destination           Protocol Length Info
+   1440 16.410498222   2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Complete
+
+Frame 1440: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:05:20.089643292 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947120.089643292 seconds
+    [Time delta from previous captured frame: 0.001318060 seconds]
+    [Time delta from previous displayed frame: 0.567381027 seconds]
+    [Time since reference or first frame: 16.410498222 seconds]
+    Frame Number: 1440
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 13, Ack: 151, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Complete
+        0111 0000 = Header Flags: 0x70 (Publish Complete)
+        Msg Len: 2
+        Message Identifier: 3
+
+No.     Time           Source                Destination           Protocol Length Info
+   5504 61.742856749   2001:660:6602:102::5  2001:660:6602:142::10 MQTT     157    Publish Message
+
+Frame 5504: 157 bytes on wire (1256 bits), 157 bytes captured (1256 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:06:05.422001819 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947165.422001819 seconds
+    [Time delta from previous captured frame: 0.007891360 seconds]
+    [Time delta from previous displayed frame: 45.332358527 seconds]
+    [Time since reference or first frame: 61.742856749 seconds]
+    Frame Number: 5504
+    Frame Length: 157 bytes (1256 bits)
+    Capture Length: 157 bytes (1256 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 151, Ack: 17, Len: 71
+MQ Telemetry Transport Protocol
+    Publish Message
+        0011 0100 = Header Flags: 0x34 (Publish Message)
+        Msg Len: 69
+        Topic: test
+        Message Identifier: 4
+        Message: Status type: "CON" Code: "GET" MID: "43390" Accept: "unknown"
+
+No.     Time           Source                Destination           Protocol Length Info
+   5549 62.313336514   2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Received
+
+Frame 5549: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:06:05.992481584 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947165.992481584 seconds
+    [Time delta from previous captured frame: 0.000412622 seconds]
+    [Time delta from previous displayed frame: 0.570479765 seconds]
+    [Time since reference or first frame: 62.313336514 seconds]
+    Frame Number: 5549
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 17, Ack: 222, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Received
+        0101 0000 = Header Flags: 0x50 (Publish Received)
+        Msg Len: 2
+        Message Identifier: 4
+
+No.     Time           Source                Destination           Protocol Length Info
+   5551 62.313537645   2001:660:6602:102::5  2001:660:6602:142::10 MQTT     90     Publish Release
+
+Frame 5551: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:06:05.992682715 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947165.992682715 seconds
+    [Time delta from previous captured frame: 0.000125563 seconds]
+    [Time delta from previous displayed frame: 0.000201131 seconds]
+    [Time since reference or first frame: 62.313537645 seconds]
+    Frame Number: 5551
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 222, Ack: 21, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Release
+        0110 0010 = Header Flags: 0x62 (Publish Release)
+        Msg Len: 2
+        Message Identifier: 4
+
+No.     Time           Source                Destination           Protocol Length Info
+   5600 62.884431490   2001:660:6602:142::10 2001:660:6602:102::5  MQTT     90     Publish Complete
+
+Frame 5600: 90 bytes on wire (720 bits), 90 bytes captured (720 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:06:06.563576560 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947166.563576560 seconds
+    [Time delta from previous captured frame: 0.000047415 seconds]
+    [Time delta from previous displayed frame: 0.570893845 seconds]
+    [Time since reference or first frame: 62.884431490 seconds]
+    Frame Number: 5600
+    Frame Length: 90 bytes (720 bits)
+    Capture Length: 90 bytes (720 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 21, Ack: 226, Len: 4
+MQ Telemetry Transport Protocol
+    Publish Complete
+        0111 0000 = Header Flags: 0x70 (Publish Complete)
+        Msg Len: 2
+        Message Identifier: 4
+
+No.     Time           Source                Destination           Protocol Length Info
+  10754 123.031919538  2001:660:6602:142::10 2001:660:6602:102::5  MQTT     88     Ping Request
+
+Frame 10754: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:07:06.711064608 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947226.711064608 seconds
+    [Time delta from previous captured frame: 0.000567812 seconds]
+    [Time delta from previous displayed frame: 60.147488048 seconds]
+    [Time since reference or first frame: 123.031919538 seconds]
+    Frame Number: 10754
+    Frame Length: 88 bytes (704 bits)
+    Capture Length: 88 bytes (704 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3), Dst: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a)
+Internet Protocol Version 6, Src: 2001:660:6602:142::10, Dst: 2001:660:6602:102::5
+Transmission Control Protocol, Src Port: 53566, Dst Port: 1883, Seq: 25, Ack: 226, Len: 2
+MQ Telemetry Transport Protocol
+    Ping Request
+        1100 0000 = Header Flags: 0xc0 (Ping Request)
+        Msg Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+  10756 123.032160245  2001:660:6602:102::5  2001:660:6602:142::10 MQTT     88     Ping Response
+
+Frame 10756: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+    Interface id: 0 (eth1)
+    Encapsulation type: Ethernet (1)
+    Arrival Time: May 16, 2017 17:07:06.711305315 CEST
+    [Time shift for this packet: 0.000000000 seconds]
+    Epoch Time: 1494947226.711305315 seconds
+    [Time delta from previous captured frame: 0.000182615 seconds]
+    [Time delta from previous displayed frame: 0.000240707 seconds]
+    [Time since reference or first frame: 123.032160245 seconds]
+    Frame Number: 10756
+    Frame Length: 88 bytes (704 bits)
+    Capture Length: 88 bytes (704 bits)
+    [Frame is marked: False]
+    [Frame is ignored: False]
+    [Protocols in frame: eth:ethertype:ipv6:tcp:mqtt]
+    [Coloring Rule Name: TCP]
+    [Coloring Rule String: tcp]
+Ethernet II, Src: PcsCompu_4d:e8:0a (08:00:27:4d:e8:0a), Dst: PcsCompu_48:f0:a3 (08:00:27:48:f0:a3)
+Internet Protocol Version 6, Src: 2001:660:6602:102::5, Dst: 2001:660:6602:142::10
+Transmission Control Protocol, Src Port: 1883, Dst Port: 53566, Seq: 226, Ack: 27, Len: 2
+MQ Telemetry Transport Protocol
+    Ping Response
+        1101 0000 = Header Flags: 0xd0 (Ping Response)
+        Msg Len: 0
