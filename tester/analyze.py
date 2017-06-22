@@ -1,5 +1,6 @@
 import json
 from tester.commands import extract_field
+from tester import N_PACKET_SEND, QoS
 
 ### CLASS FOR STORE AN MQTT MESSAGE
 class packet():
@@ -12,6 +13,7 @@ class packet():
         self.frame_id = None
         self.type = None
         self.size = -1
+        self.payload_size = 0
         self.delta_time = -1
         self.epoc_time = -1
         self.mid = -1
@@ -90,38 +92,39 @@ class mqtt_performance():
                 try:
 
                     msg.frame_id = extract_field(pkt, 'frame_id')
+                    msg.size = int(extract_field(pkt, "frame_size"))
 
                     # Read TIME
                     msg.delta_time = extract_field(pkt, "time_delta")
-                    msg.epoc_time = extract_field(pkt, "time_epoch")
+                    msg.epoc_time  = extract_field(pkt, "time_epoch")
                     if 'mqtt' in pkt["_source"]['layers']:
+
                         self.counter += 1
                         msg.type = extract_field(pkt, "mqtt_type")
-                        msg.size = extract_field(pkt, "mqtt_size", msg.type)
+                        msg.payload_size = extract_field(pkt, "mqtt_size", msg.type)
                         msg.mid  = extract_field(pkt, "mqtt_id",   msg.type)
                         msg.protocol = "mqtt"
 
                         if msg.type not in self.mqtt_types:
                             self.mqtt_types.append(msg.type)
+
                         self.num_mqtt += 1
-                        self.size_mqtt += int(msg.size)
+                        self.size_mqtt += msg.size
                         self.packets.append(msg)
 
                     elif 'udp' in pkt["_source"]['layers']:
                         msg.protocol = "udp"
                         msg.size = extract_field(pkt, "udp_size")
-                        self.size_udp += int(msg.size)
+                        self.payload_size += msg.size
                         self.num_upd += 1
                     elif 'tcp' in pkt["_source"]['layers']:
                         msg.protocol = "tcp"
-                        msg.size = int(extract_field(pkt, "tcp_size"))
-                        self.size_tcp += int(msg.size)
+                        self.payload_size = int(extract_field(pkt, "tcp_size"))
+                        self.size_tcp += msg.size
                         self.num_tcp += 1
                     else:
                         msg.protocol = extract_field(pkt, "protocols")
-                        #print ("protocols: " + msg.protocol)
-                        msg.size = extract_field(pkt, "frame_size")
-                        self.size_others += int(msg.size)
+                        self.size_others += msg.size
                         self.num_others += 1
 
 
@@ -245,17 +248,14 @@ class mqtt_performance():
             return 0
 
         overhead = (self.size_tcp*1.0)/size
-        print("[TCP_OVERHEAD] TCP[%d]/TOTAL[%d] = %f " % (self.size_tcp, size, overhead))
+        print("[TCP_OVERHEAD] TCP[%d] /TOTAL[%d] = %f " % (self.size_tcp, size, overhead))
         return overhead
 
 ##### HERE THE MAIN INFO TO SET UP
 
 #TODO:vanno spostati
 
-N_PACKET_SEND = 250
-QoS = 2
-PAYLOAD_SIZE = 128
-filename = './problem.txt'
+
 
 
 
@@ -285,5 +285,5 @@ if __name__ == '__main__':
     demo = mqtt_performance(pkts, N_PACKET_SEND, QoS)
     demo.get_e2e()
     demo.get_pdr()
-    demo.get_packet_drop(PAYLOAD_SIZE)
+    demo.get_packet_drop(256)
     demo.get_tcp_overhead()
