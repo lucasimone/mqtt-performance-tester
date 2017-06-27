@@ -38,7 +38,7 @@ def launch_sniffer(filename, filter_if, other_filter=None):
 
     params = 'tcpdump -K -i ' + filter_if + ' -s 200 ' + '  -w ' + filename + ' ' + other_filter + ' &'
     os.system(params)
-    logger.info('Creating process tcpdump with: %s' % params)
+    logger.info('Creating process TCPDUMP with: %s' % params)
 
     # TODO we need to catch tcpdump: <<tun0: No such device exists>> from stderr
 
@@ -61,6 +61,7 @@ def stop_sniffer():
     proc.wait()
     logger.info('Packet capture stopped')
     return True
+
 
 def stop_sniffer_with(filename):
     ps_line = os.popen("ps -alx | grep tcpdump | grep [{0}]{1}".format(filename[0], filename[1:])).read()

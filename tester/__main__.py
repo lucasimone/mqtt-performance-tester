@@ -16,9 +16,9 @@ def start_mqtt_client(set_qos, payload_size):
 
     logger.debug("Payload size: %d" % len(payload))
 
-    params = 'mosquitto_pub -q %s -t %s -m %s ' % (set_qos, TOPIC, payload)
+    params = "mosquitto_pub -q %s -t %s -m %s" % (set_qos, TOPIC, payload)
     logger.debug(params)
-    for count in range(1, N_PACKET_SEND):
+    for count in range( N_PACKET_SEND ):
         os.system(params)
 
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
                                     ]))
 
                 file_name = '%s.pcap' % file_id
-                launch_sniffer(file_name, IFC, other_filter='tcp and port 1883')
+                launch_sniffer(file_name, IFC, other_filter='tcp')
                 start_mqtt_client(qos, payload)
                 stop_sniffer()
                 decode_pcap(file_name)
