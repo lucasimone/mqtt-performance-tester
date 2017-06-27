@@ -33,7 +33,7 @@ def write_test_result(index, payload, file_id,  num_test, path=DATA_PATH):
         line.append("|- ITERATION:{0}\n".format(num_test))
         line.append("|- PDrop:{0}\n".format(data.get_packet_drop(payload)))
         line.append("|- E2E:{0}\n".format(data.get_e2e()))
-        line.append("|- TCP Overhead:{}".format(data.get_tcp_overhead()))
+        line.append("|- TCP Overhead:{}\n".format(data.get_tcp_overhead()))
         line.append("|- PDR: {0}\n".format(data.get_pdr()))
         line.append("\n")
         fw.writelines(" ".join(line))
