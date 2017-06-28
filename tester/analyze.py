@@ -20,8 +20,8 @@ class packet():
 
 
     def __repr__(self):
-        return "%s Type:%s mid:%s Size:%s - Time:%s Epoc:%s" \
-               %(self.protocol, self.type, self.mid, self.size, self.delta_time, self.epoc_time)
+        return "--- mid:%s \t%s \tType:%s \tSize:%s \tTime:%s \tEpoc:%s" \
+               %(self.mid, self.protocol, self.type,  self.size, self.delta_time, self.epoc_time)
 
 
 ### CLASS FOR COMPUTE ALL THE PERFORMANCE PARAMS
@@ -78,6 +78,7 @@ class mqtt_performance():
         self.num_upd = 0
         self.num_others = 0
         self.mqtt_types = []
+        self.mqtt_ids   = []
 
         self._parse_json()
 
@@ -105,8 +106,16 @@ class mqtt_performance():
                         msg.mid  = extract_field(pkt, "mqtt_id",   msg.type)
                         msg.protocol = "mqtt"
 
+
                         if msg.type not in self.mqtt_types:
                             self.mqtt_types.append(msg.type)
+
+                        if msg.mid not in self.mqtt_ids or msg.mid == 'NA':
+                            if msg.mid != 'NA':
+                                self.mqtt_ids.append(msg.mid)
+                                self.mqtt_ids.append(msg.mid)
+                        else:
+                            print("DUP packet %s" %repr(msg))
 
                         self.num_mqtt += 1
                         self.size_mqtt += msg.size
@@ -210,9 +219,11 @@ class mqtt_performance():
             filter = self.MQTT_PUB_COM
         data = self.filter_by(filter)
 
+
         counter = len(data)
-        pdr = (counter / self.num_request) * 100
-        print("[PDR] The PDR for [%s] is %f [n. Pkt %d] " % (filter, pdr, counter))
+
+        pdr = (counter *1.0 / self.num_request) * 100
+        print("[PDR] The PDR for is %f [n. %d %s Pkt / Pkt sent %d] - REQUEST: %d" % (pdr, counter, filter, self.num_request, N_PACKET_SEND))
         return pdr
 
     def get_size(self, protocol):
