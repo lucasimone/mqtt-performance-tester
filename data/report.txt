@@ -2,77 +2,137 @@
  ---MQTT TEST n.0
  |- FILENAME: data/mqtt_capture_qos_1_payload_128
  |- PAYLOAD :128
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.441613440586
+ |- TCP Overhead:0.574005604762
+ |- PDR: 100
  
 
- ---MQTT TEST n.1
- |- FILENAME: data/mqtt_capture_qos_1_payload_256
- |- PAYLOAD :256
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.495906502309
+ |- TCP Overhead:0.573885264745
+ |- PDR: 100
  
 
- ---MQTT TEST n.2
- |- FILENAME: data/mqtt_capture_qos_1_payload_512
- |- PAYLOAD :512
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.450910090202
+ |- TCP Overhead:0.573578844037
+ |- PDR: 19.9
  
 
- ---MQTT TEST n.3
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.450045056679
+ |- TCP Overhead:0.57368161656
+ |- PDR: 199.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.447908524892
+ |- TCP Overhead:0.5743226033
+ |- PDR: 199.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.449119775295
+ |- TCP Overhead:0.574000748577
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_128
+ |- PAYLOAD :128
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:34.1983025225
+ |- TCP Overhead:0.579296444956
+ |- PDR: 198.0
+ 
+
+ ---MQTT TEST n.0
  |- FILENAME: data/mqtt_capture_qos_1_payload_1024
  |- PAYLOAD :1024
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.48034606016
+ |- TCP Overhead:0.305051161537
+ |- PDR: 198.0
  
 
- ---MQTT TEST n.4
- |- FILENAME: data/mqtt_capture_qos_2_payload_128
- |- PAYLOAD :128
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.5
- |- FILENAME: data/mqtt_capture_qos_2_payload_256
- |- PAYLOAD :256
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.6
- |- FILENAME: data/mqtt_capture_qos_2_payload_512
- |- PAYLOAD :512
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.7
- |- FILENAME: data/mqtt_capture_qos_2_payload_1024
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
  |- PAYLOAD :1024
- |- ITERATION:2
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.461311735511
+ |- TCP Overhead:0.306857209194
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.45868984359
+ |- TCP Overhead:0.305326622338
+ |- PDR: 199.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.461889714003
+ |- TCP Overhead:0.304908803616
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:200
+ |- PDrop:0.0
+ |- E2E:0.43311205864
+ |- TCP Overhead:0.307131951335
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:500
+ |- PDrop:0.0
+ |- E2E:1.07934161305
+ |- TCP Overhead:0.304792405832
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:1
  |- PDrop:0
  |- E2E:0
  |- TCP Overhead:0
@@ -80,81 +140,201 @@
  
 
  ---MQTT TEST n.0
- |- FILENAME: data/mqtt_capture_qos_1_payload_128
- |- PAYLOAD :128
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.1
- |- FILENAME: data/mqtt_capture_qos_1_payload_256
- |- PAYLOAD :256
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.2
- |- FILENAME: data/mqtt_capture_qos_1_payload_512
- |- PAYLOAD :512
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.3
  |- FILENAME: data/mqtt_capture_qos_1_payload_1024
  |- PAYLOAD :1024
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
+ |- ITERATION:1
+ |- PDrop:0.0
+ |- E2E:6.40153884888e-05
+ |- TCP Overhead:0.535651869976
+ |- PDR: 200.0
  
 
- ---MQTT TEST n.4
- |- FILENAME: data/mqtt_capture_qos_2_payload_128
- |- PAYLOAD :128
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.5
- |- FILENAME: data/mqtt_capture_qos_2_payload_256
- |- PAYLOAD :256
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.6
- |- FILENAME: data/mqtt_capture_qos_2_payload_512
- |- PAYLOAD :512
- |- ITERATION:2
- |- PDrop:0
- |- E2E:0
- |- TCP Overhead:0
- |- PDR: 0.0
- 
-
- ---MQTT TEST n.7
- |- FILENAME: data/mqtt_capture_qos_2_payload_1024
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
  |- PAYLOAD :1024
- |- ITERATION:2
- |- PDrop:0
+ |- ITERATION:1
+ |- PDrop:0.0
  |- E2E:0
- |- TCP Overhead:0
+ |- TCP Overhead:1.0
  |- PDR: 0.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0408084154129
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0357403026687
+ |- TCP Overhead:0.323335078312
+ |- PDR: 180.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0415404975414
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0403209485506
+ |- TCP Overhead:0.304632295211
+ |- PDR: 190.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.041191470623
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0398722824297
+ |- TCP Overhead:0.304632295211
+ |- PDR: 190.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.107949068672
+ |- TCP Overhead:0.304632295211
+ |- PDR: 190.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.042937451601
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0449803613481
+ |- TCP Overhead:0.306568073075
+ |- PDR: 210.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0426135063171
+ |- TCP Overhead:0.321510195222
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0442904889584
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0415516316891
+ |- TCP Overhead:0.323651821965
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0421711623669
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0412672102451
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0424212992191
+ |- TCP Overhead:0.324315072835
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0421381652355
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0423825740814
+ |- TCP Overhead:0.304632295211
+ |- PDR: 200.0
+ 
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_1_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.0
+ |- E2E:0.0429520189762
+ |- TCP Overhead:0.306664579093
+ |- PDR: 200.0
  

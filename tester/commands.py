@@ -4,6 +4,7 @@ import os
 import platform
 import subprocess
 import logging
+import time
 import json
 
 
@@ -36,7 +37,8 @@ def launch_sniffer(filename, filter_if, other_filter=None):
     except:
         pass
 
-    params = 'tcpdump -K -i ' + filter_if + ' -s 200 ' + '  -w ' + filename + ' ' + other_filter + ' &'
+    #params = 'tcpdump -K -i ' + filter_if + ' -s 0' + '  -w ' + filename + ' ' + other_filter + ' &'
+    params = 'tcpdump -i lo0 -vv tcp -w %s &' % filename
     os.system(params)
     logger.info('Creating process TCPDUMP with: %s' % params)
 
@@ -51,6 +53,8 @@ def decode_pcap(filename):
     json_filename = os.path.splitext(filename)[0] + '.json'
 
     params = 'tshark -r {0} -l -n -x -T json > {1}'.format(filename, json_filename)
+
+
     os.system(params)
     logger.info('Dissect PCAP as JSON using this command: %s' % params)
     return True
@@ -60,7 +64,12 @@ def stop_sniffer():
     proc = subprocess.Popen(["pkill", "-INT", "tcpdump"], stdout=subprocess.PIPE)
     proc.wait()
     logger.info('Packet capture stopped')
+
     return True
+
+def show_pcap(filename):
+    logger.info("SHOW: tcpdump -s 0 -n -e -x -vvv -r %s" %filename)
+    os.system("tcpdump -s 0 -n -e -x -vvv -r %s" %filename)
 
 
 def stop_sniffer_with(filename):
