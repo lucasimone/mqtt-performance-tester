@@ -19,10 +19,10 @@ def init_output_file(num_test, path = DATA_PATH):
         fw.close()
 
 
-def write_test_result(index, payload, file_id,  num_test, path=DATA_PATH):
+def write_test_result(index, payload, file_id,  num_test, qos, path=DATA_PATH):
 
     filename = "/".join([".", path, TEST_RESULT])
-    data = computeTime('%s.json' % file_id, num_test=num_test)
+    data = computeTime('%s.json' % file_id,  qos=qos, num_test=num_test)
 
     with open(filename, "a") as fw:
         line = []

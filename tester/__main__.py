@@ -16,7 +16,7 @@ def start_mqtt_client(set_qos, payload_size):
 
     #logger.debug("Payload size: %d" % len(payload))
 
-    params = "mosquitto_pub -q %s -t %s -m %s -h localhost" % (set_qos, TOPIC, payload)
+    params = "mosquitto_pub -q %d -t %s -m %s -h localhost" % (set_qos, TOPIC, payload)
 
     #logger.debug(params)
     for count in range( N_PACKET_SEND):
@@ -24,16 +24,27 @@ def start_mqtt_client(set_qos, payload_size):
         os.system(params)
 
 
-
-if __name__ == '__main__':
+def backup_data_folder():
+    if os.path.exists(DATADIR):
+        old_data = '_'.join([DATADIR, str(time.time())])
+        os.rename(DATADIR, old_data)
 
     # generate dirs
-    for d in TMPDIR, DATADIR, LOGDIR:
+    for d in TMPDIR, DATADIR, LOGDIR, BACKUP:
         try:
             os.makedirs(d)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
+
+    if old_data:
+        os.rename(old_data, "%s/%s" % (BACKUP, old_data))
+
+if __name__ == '__main__':
+
+
+    backup_data_folder()
+
 
     logger.debug("START  MQTT TEST...")
     index = 0
@@ -48,16 +59,16 @@ if __name__ == '__main__':
                                     ]))
 
                 file_name = '%s.pcap' % file_id
-                launch_sniffer(file_name, IFC, other_filter='')
-                time.sleep(1)
+                launch_sniffer(file_name, IFC, other_filter=TCPDUMP_FILTER)
+                time.sleep(WAIT_START_TCPDUMP)
                 start_mqtt_client(qos, payload)
                 print(" >>> SENT ALL PACKETS <<<<")
-                time.sleep(3)
+                time.sleep(WAIT_CLOSE_TCPDUMP)
                 logger.debug("KILL TCPDUMP...")
                 stop_sniffer()
                 #show_pcap(file_name)
                 decode_pcap(file_name)
-                write_test_result(index, payload, file_id, N_PACKET_SEND)
+                write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
 
                 index+=1
 
