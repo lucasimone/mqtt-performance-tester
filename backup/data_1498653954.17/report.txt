@@ -1,0 +1,10 @@
+
+ ---MQTT TEST n.0
+ |- FILENAME: data/mqtt_capture_qos_2_payload_1024
+ |- PAYLOAD :1024
+ |- ITERATION:20
+ |- PDrop:0.459172234429
+ |- E2E:0.0428604841232
+ |- TCP Overhead:0.332541141653
+ |- PDR: 200.0
+ 

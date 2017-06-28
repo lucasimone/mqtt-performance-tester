@@ -193,8 +193,10 @@ class mqtt_performance():
         avg_time = 0
         counter  = 0
         data = self.filter_by(msg_type)
+
         for msg in data:
             msg_pub = self.find_msg_with_id(msg.mid, self.MQTT_PUB)
+
             mqtt_time  = (float(msg.epoc_time) - float(msg_pub.epoc_time))
             if mqtt_time > max:
                 max = mqtt_time
@@ -204,11 +206,13 @@ class mqtt_performance():
             # print ("%s -- %s " % (repr(msg), repr(msg_pub)))
             counter += 1
 
+        print("[E2E] TOTAL TIME: %s " % avg_time)
         if counter == 0:
             avg_time = 0
         else:
             avg_time /= counter
         print("[E2E] MIN TIME: %s - MAX TIME: %s" % (min, max))
+
         print("[E2E] The E2E delay for %s is :%f [N. Pkt=%d]" %(msg_type, avg_time, counter))
         return avg_time
 
@@ -237,18 +241,20 @@ class mqtt_performance():
 
 
     def get_packet_drop(self, paylod_size):
-        n_ack = 0
-        if self.qos == 1:
-            n_ack = self.get_num(self.MQTT_PUB_ACK)
-        else:
-            n_ack = self.get_num(self.MQTT_PUB_COM)
 
+        if self.qos == 1:
+            num_ack = self.get_num(self.MQTT_PUB_ACK)
+            ack_type = self.MQTT_PUB_ACK
+        else:
+            num_ack = self.get_num(self.MQTT_PUB_COM)
+            ack_type = self.MQTT_PUB_COM
         size  = self.size_tcp + self.size_mqtt
+
         if float(size) == 0:
             return 0
 
-        pdrop = (float(n_ack) * float(paylod_size)) / float(size)
-        print("[PDROP] The Packet Drop is %f [n. ack: %d  dim: %d] " % (pdrop, n_ack, size))
+        pdrop = (num_ack * paylod_size * 1.0) / float(size)
+        print("[PDROP] The Packet Drop is %f [n. %s: %d  dim: %d] " % (pdrop, ack_type, num_ack, size))
         return pdrop
 
 
@@ -271,12 +277,12 @@ class mqtt_performance():
 
 
 
-def computeTime(json_file, num_test):
+def computeTime(json_file, num_test, qos):
     with open(json_file) as file:
         pkts = json.load(file)
         file.close()
 
-    return mqtt_performance(pkts, N_PACKET_SEND, QoS)
+    return mqtt_performance(pkts, num_test, qos)
 
 
 if __name__ == '__main__':

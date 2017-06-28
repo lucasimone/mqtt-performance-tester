@@ -37,8 +37,8 @@ def launch_sniffer(filename, filter_if, other_filter=None):
     except:
         pass
 
-    #params = 'tcpdump -K -i ' + filter_if + ' -s 0' + '  -w ' + filename + ' ' + other_filter + ' &'
-    params = 'tcpdump -i lo0 -vv tcp -w %s &' % filename
+    #params = 'tcpdump -i ' + filter_if  + ' ' + other_filter + ' -vv -w ' + filename + ' &'
+    params = 'tcpdump -i %s -vv %s -w %s &' % (filter_if, other_filter, filename)
     os.system(params)
     logger.info('Creating process TCPDUMP with: %s' % params)
 
