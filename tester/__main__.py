@@ -63,14 +63,15 @@ if __name__ == '__main__':
                 time.sleep(WAIT_START_TCPDUMP)
                 start_mqtt_client(qos, payload)
                 print(" >>> SENT ALL PACKETS <<<<")
-                time.sleep(WAIT_CLOSE_TCPDUMP)
+
+                check_end_of_transmission(file_name)
                 logger.debug("KILL TCPDUMP...")
                 stop_sniffer()
-                #show_pcap(file_name)
+
                 decode_pcap(file_name)
                 write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
 
                 index+=1
 
 
-    logger.debug("TEST MQTT is over!")
+    logger.debug("TEST MQTT completed!")

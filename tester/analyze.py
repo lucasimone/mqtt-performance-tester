@@ -276,7 +276,6 @@ class mqtt_performance():
 
 
 
-
 def computeTime(json_file, num_test, qos):
     with open(json_file) as file:
         pkts = json.load(file)
@@ -293,7 +292,7 @@ if __name__ == '__main__':
     print("#")
     print('#######################################################')
 
-    json_file = "./test.json"
+    json_file = "../test.json"
 
     with open(json_file) as file:
         pkts = json.load(file)
