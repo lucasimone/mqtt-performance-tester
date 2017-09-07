@@ -16,7 +16,7 @@ TEST_RESULT= "data/report.txt"
 #PAYLOAD_LIST = [128, 256, 512, 1024]
 PAYLOAD_LIST = [1024]
 QoS = [2]
-N_PACKET_SEND = 20
+N_PACKET_SEND = 2
 TOPIC = 'topic'
 
 
