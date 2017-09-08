@@ -83,7 +83,7 @@ def stop_sniffer_with(filename):
         logger.info('Packet capture stopped')
 
 
-def check_end_of_transmission(filename):
+def check_end_of_transmission(filename, qos, num):
 
     while not os.path.exists(filename):
         time.sleep(0.001)
@@ -100,15 +100,18 @@ def check_end_of_transmission(filename):
         decode_pcap(filename)  # GEN JSON FILE
         json_filename = os.path.splitext(filename)[0] + '.json'
 
-        process = subprocess.Popen(['grep', 'Ping', json_filename], stdout=subprocess.PIPE)
+
+        check_message  = "Publish Ack"
+        if qos == 2:
+            check_message = "Publish Release"
+        process = subprocess.Popen(['grep', check_message, json_filename], stdout=subprocess.PIPE)
         ping_out, ping_err = process.communicate()
 
-        print (ping_out, ping_err)
-        if len(ping_out) > 0 :
-            wait_first_ping_to_quit = False
-            print ("GET PING --- STOP SNIFFER....")
 
-        time.sleep(20)
+        print (ping_out, ping_err)
+        if ping_out.count(check_message) == num:
+            wait_first_ping_to_quit = False
+            print("GET {0} Message type {1} --- STOP SNIFFER....".format(num, check_message))
 
 
 
