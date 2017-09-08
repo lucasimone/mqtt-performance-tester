@@ -106,6 +106,8 @@ class mqtt_performance():
                         msg.mid  = extract_field(pkt, "mqtt_id",   msg.type)
                         msg.protocol = "mqtt"
 
+                        print ("- MQTT Message Type {0} - ID:{1}".format(msg.type, msg.mid))
+
 
                         if msg.type not in self.mqtt_types:
                             self.mqtt_types.append(msg.type)

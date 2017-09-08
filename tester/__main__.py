@@ -16,7 +16,7 @@ def start_mqtt_client(set_qos, payload_size):
 
     #logger.debug("Payload size: %d" % len(payload))
 
-    params = "mosquitto_pub -q %d -t %s -m %s -h localhost" % (set_qos, TOPIC, payload)
+    params = "mosquitto_pub -q %d -t %s -m %s" % (set_qos, TOPIC, payload)
 
     #logger.debug(params)
     for count in range( N_PACKET_SEND):
@@ -64,7 +64,7 @@ if __name__ == '__main__':
                 start_mqtt_client(qos, payload)
                 print(" >>> SENT ALL PACKETS <<<<")
 
-                check_end_of_transmission(file_name)
+                check_end_of_transmission(file_name, qos, N_PACKET_SEND)
                 logger.debug("KILL TCPDUMP...")
                 stop_sniffer()
 
