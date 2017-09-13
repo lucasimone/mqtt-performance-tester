@@ -5,7 +5,7 @@ import platform
 import subprocess
 import logging
 import time
-import json
+from tester import GW_IP
 
 
 # init logging to stnd output and log files
@@ -94,7 +94,6 @@ def check_end_of_transmission(filename, qos, num):
     print("PCAP contains at lease 1 packet")
 
     wait_first_ping_to_quit = True
-    ack_count = 0
     while wait_first_ping_to_quit :
 
         decode_pcap(filename)  # GEN JSON FILE
@@ -113,9 +112,12 @@ def check_end_of_transmission(filename, qos, num):
             wait_first_ping_to_quit = False
             print("GET {0} Message type {1} --- STOP SNIFFER....".format(num, check_message))
         else:
-            if ack_count< ping_out.count(check_message):
-                ack_count = ping_out.count(check_message)
-                print("Received ACK {0}/{1}".format(ping_out.count(check_message), num))
+            print("Received ACK {0}/{1}".format(ping_out.count(check_message), num))
+            # I need to send some data after the transmission is finished because TCP dumpo
+            # does not store packtes until it gets a certain amount of data
+            print ("ping -c 2 -s 512 {0}".format(GW_IP))
+            os.system("ping -c 2 -s 512 {0}".format(GW_IP))
+
 
 
 def extract_field(pkt, what, msg_type=None):
