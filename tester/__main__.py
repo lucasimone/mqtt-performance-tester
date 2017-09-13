@@ -23,7 +23,7 @@ def start_mqtt_client(set_qos, payload_size):
 
     for count in range( N_PACKET_SEND):
 
-        params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, TOPIC, create_paylod(payload_size, count))
+        params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count))
         print(" >>> Sending packet n.%d/%s \tPayload: %s" %(count+1, N_PACKET_SEND, payload_size))
         os.system(params)
 

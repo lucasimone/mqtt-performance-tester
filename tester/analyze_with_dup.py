@@ -159,7 +159,7 @@ class mqtt_performance():
                 else:
                     self.mid_duplicated = True
 
-            elif 'mqtt.len' in l:
+            elif 'mqtt.len":' in l:
                 pkt.payload_size = self.getInt(l)
             elif "frame.time_epoch" in l:
                 pkt.epoc_time = self.getFloat(l)
