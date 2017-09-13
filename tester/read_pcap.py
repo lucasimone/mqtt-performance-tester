@@ -1,100 +1,94 @@
-import os
-import time
-from tester.commands import *
-from tester.write_ouput import write_test_result
+import re
 
-filename = '../data/mqtt_capture_qos_2_payload_1024.pcap'
+json_file = "../mqtt_capture_qos_1_payload_1024.json"
+print ("######")
+STRING_TO_FIND = '{*"_index"'
 
-#launch_sniffer(filename, IFC, other_filter="")
-while not os.path.exists(filename):
-    time.sleep(0.001)
-    print('.', end='', flush=True)
+with open(json_file) as file:
+    content = str(file.readlines())
 
 
+lines = content.replace("', '", "").split("\\n")
+counter_mqtt = 0
+counter_other = 0
 
-print()
-print("PCAP FILE is READY!")
+class packet():
 
-while os.path.getsize(filename) < 24:
-    pass
-print("PCAP contains at lease 1 packet")
-
-
-decode_pcap(filename)
-json_filename = os.path.splitext(filename)[0] + '.json'
-with open(json_filename) as file:
-    pkts = json.load(file)
-    file.close()
-
-index = 0
-for pkt in pkts:
+    counter = 0
 
 
-    if 'mqtt' in pkt["_source"]['layers']:
-        msg_type = list(pkt["_source"]['layers']['mqtt'].keys())[0]
-        print("Pkt n. {0} - Type: {1}".format(index, msg_type))
-        index += 1
-        if "Ping" in msg_type:
-            print (" CLOSE SNIFFER")
-            break
+    def __init__(self):
+        self.protocol = None
+        self.frame_id = None
+        self.type = None
+        self.size = -1
+        self.payload_size = 0
+        self.delta_time = -1
+        self.epoc_time = -1
+        self.mid = -1
 
 
-
-print("FINE PCAP")
-
-#         if eth.type!=dpkt.ethernet.ETH_TYPE_IP:
-#             continue
-#
-#         ip=eth.data
-#         ipcounter+=1
-#
-#         if ip.p==dpkt.ip.IP_PROTO_TCP:
-#             tcpcounter+=1
-#
-#         if ip.p==dpkt.ip.IP_PROTO_UDP:
-#             udpcounter+=1
-# print ("Total number of packets in the pcap file: ", counter)
-# print ("Total number of ip packets: ", ipcounter)
-# print ("Total number of tcp packets: ", tcpcounter)
-# print ("Total number of udp packets: ", udpcounter)
+    def __repr__(self):
+        return "---Pkt mid:%s \tprotocol:%s \tType:%s \tSize:%s \tTime:%s \tEpoc:%s \t Payload Size:%s " \
+               %(self.mid, self.protocol, self.type,  self.size, self.delta_time, self.epoc_time, self.payload_size)
 
 
-#
-# while counter < 100:
-#     counter = 0
-#     c_udp = 0
-#     try:
-#
-#         for ts, pkt in dpkt.pcap.Reader(open(filename, 'rb')):
-#             eth = dpkt.ethernet.Ethernet(pkt)
-#             counter += 1
-#
-#             # Check whether IP packets: to consider only IP packets
-#             if eth.type != dpkt.ethernet.ETH_TYPE_IP:
-#                 continue
-#                 # Skip if it is not an IP packet
-#
-#             ip = eth.data
-#             if ip.p == dpkt.ip.IP_PROTO_TCP:  # Check for TCP packets
-#                 TCP = ip.data
-#                 # ADD TCP packets Analysis code here
-#             elif ip.p == dpkt.ip.IP_PROTO_UDP:  # Check for UDP packets
-#                 UDP = ip.data
-#                 c_udp += 1
-#                 # UDP packets Analysis code here
-#
-#     except Exception:
-#         print ("Error!")
-#     print("PCAP contains {0}  packets".format(counter))
-#     print("PCAP contains {0} UDP packets".format(c_udp))
-#
-# print("END OF READING")
+mqtt_pkts = []
+other_pkt = []
 
-# def print_callback(pkt):
-#     print ('Just arrived:', pkt)
-#
-#
-# import pyshark
-# capture = pyshark.LiveCapture(interface='en0')
-# capture.sniff(timeout=50)
-# capture.apply_on_packets(print_callback, timeout=5)
+
+def get(data):
+    return data.split()[1].replace('"', "")
+
+def getInt(data):
+    val =  get(data)
+    return int(val.replace(",",""))
+
+def getFloat(data):
+    val = get(data)
+    return float(val.replace(",", ""))
+
+
+pkt = None
+for index, l in enumerate(lines):
+    if "_index" in l :
+
+        if pkt:
+            if pkt.protocol:
+                if "mqtt" in pkt.protocol:
+                    counter_mqtt += 1
+                    mqtt_pkts.append(pkt)
+                    print("-n.{0} {1}".format(counter_mqtt, repr(pkt)))
+                else:
+                    counter_other += 1
+                    other_pkt.append(pkt)
+                    print("---- OTHER -n.{0} {1}".format(counter_other, repr(pkt)))
+            else:
+                counter_other += 1
+                other_pkt.append(pkt)
+                print("---- OTHER -n.{0} {1}".format(counter_other, repr(pkt)))
+
+        pkt = packet()
+
+
+    elif "frame.protocols" in l:
+        pkt.protocol = get(l)
+    elif '"mqtt.msgid"' in l:
+        if pkt.mid>-1:
+            cp_pkt =  pkt
+            mqtt_pkts.append(cp_pkt)
+            print("-n.{0} {1}".format(counter_mqtt, repr(pkt)))
+        pkt.mid = getInt(l)
+    elif 'mqtt.len' in l:
+        pkt.payload_size = getInt(l)
+    elif "frame.time_epoch" in l:
+        pkt.epoc_time = getFloat(l)
+
+    elif "frame.time_delta_displayed" in l:
+        pkt.delta_time = getFloat(l)
+
+    elif "frame.number" in l:
+        pkt.frame_id = get(l)
+    elif '"mqtt": {' in l :
+        pkt.type = lines[index+1].split('"')[1]
+

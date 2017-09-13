@@ -14,9 +14,9 @@ BACKUP = "backup"
 
 TEST_RESULT= "data/report.txt"
 #PAYLOAD_LIST = [128, 256, 512, 1024]
-PAYLOAD_LIST = [1024]
-QoS = [1]
-N_PACKET_SEND = 10
+PAYLOAD_LIST = [128, 256, 512, 1024]
+QoS = [1, 2]
+N_PACKET_SEND = 100
 TOPIC = 'topic'
 
 
