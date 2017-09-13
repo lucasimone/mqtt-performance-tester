@@ -94,7 +94,7 @@ def check_end_of_transmission(filename, qos, num):
     print("PCAP contains at lease 1 packet")
 
     wait_first_ping_to_quit = True
-
+    ack_count = 0
     while wait_first_ping_to_quit :
 
         decode_pcap(filename)  # GEN JSON FILE
@@ -112,7 +112,10 @@ def check_end_of_transmission(filename, qos, num):
         if ping_out.count(check_message) >= num:
             wait_first_ping_to_quit = False
             print("GET {0} Message type {1} --- STOP SNIFFER....".format(num, check_message))
-
+        else:
+            if ack_count< ping_out.count(check_message):
+                ack_count = ping_out.count(check_message)
+                print("Received ACK {0}/{1}".format(ping_out.count(check_message), num))
 
 
 def extract_field(pkt, what, msg_type=None):
