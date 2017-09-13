@@ -49,14 +49,14 @@ def launch_sniffer(filename, filter_if, other_filter=None):
 
 def decode_pcap(filename):
 
-    logger.info('Execute TSHARK to dissect as JSON file')
+    #logger.info('Execute TSHARK to dissect as JSON file')
     json_filename = os.path.splitext(filename)[0] + '.json'
 
     params = 'tshark -r {0} -l -n -x -T json > {1}'.format(filename, json_filename)
 
 
     os.system(params)
-    logger.info('Dissect PCAP as JSON using this command: %s' % params)
+    #logger.info('Dissect PCAP as JSON using this command: %s' % params)
     return True
 
 
@@ -108,8 +108,8 @@ def check_end_of_transmission(filename, qos, num):
         ping_out, ping_err = process.communicate()
 
 
-        print (ping_out, ping_err)
-        if ping_out.count(check_message) == num:
+
+        if ping_out.count(check_message) >= num:
             wait_first_ping_to_quit = False
             print("GET {0} Message type {1} --- STOP SNIFFER....".format(num, check_message))
 
@@ -128,7 +128,7 @@ def extract_field(pkt, what, msg_type=None):
         elif what == 'time_delta':
             return pkt["_source"]['layers']['frame']['frame.time_delta']
         elif what == 'mqtt_type':
-            return pkt["_source"]['layers']['mqtt'].keys()[0]
+            return list(pkt["_source"]['layers']['mqtt'].keys())[0]
         elif what == 'mqtt_size':
             return pkt["_source"]['layers']['mqtt'][msg_type]['mqtt.len']
         elif what == 'mqtt_id':

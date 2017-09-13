@@ -1,4 +1,6 @@
 import json
+import traceback
+import sys
 from tester.commands import extract_field
 from tester import N_PACKET_SEND, QoS
 
@@ -98,16 +100,24 @@ class mqtt_performance():
                     # Read TIME
                     msg.delta_time = extract_field(pkt, "time_delta")
                     msg.epoc_time  = extract_field(pkt, "time_epoch")
+
+                    for layer in pkt["_source"]['layers']:
+                        if layer == 'mqtt':
+                            print ("---- Packet: {0}".format(pkt["_source"]['layers'][layer]))
+
+
                     if 'mqtt' in pkt["_source"]['layers']:
+
+
 
                         self.counter += 1
                         msg.type = extract_field(pkt, "mqtt_type")
                         msg.payload_size = extract_field(pkt, "mqtt_size", msg.type)
-                        msg.mid  = extract_field(pkt, "mqtt_id",   msg.type)
+                        msg.mid = extract_field(pkt, "mqtt_id",   msg.type)
                         msg.protocol = "mqtt"
 
-                        print ("- MQTT Message Type {0} - ID:{1}".format(msg.type, msg.mid))
-
+                        print(" MQTT Message Type {0} - ID:{1}".format(msg.type, msg.mid))
+                        print("Numero di messaggi MQTT: {0}".format(len(pkt["_source"]['layers']['mqtt'])))
 
                         if msg.type not in self.mqtt_types:
                             self.mqtt_types.append(msg.type)
@@ -138,10 +148,9 @@ class mqtt_performance():
                         self.size_others += msg.size
                         self.num_others += 1
 
-
                 except Exception as error:
-                    print (" >>>>> ERROR PARSING Packets %s " %pkt, error)
-
+                    print(" >>>>> ERROR PARSING Packets %s " %pkt, error)
+                    traceback.print_exc(file=sys.stdout)
 
         ## PRINT RESUL
         total = 0
@@ -286,6 +295,9 @@ def computeTime(json_file, num_test, qos):
     return mqtt_performance(pkts, num_test, qos)
 
 
+
+
+
 if __name__ == '__main__':
 
     print('#######################################################')
@@ -294,7 +306,7 @@ if __name__ == '__main__':
     print("#")
     print('#######################################################')
 
-    json_file = "../test.json"
+    json_file = "../mqtt_capture_qos_1_payload_1024.json"
 
     with open(json_file) as file:
         pkts = json.load(file)

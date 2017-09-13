@@ -1,5 +1,5 @@
 
-from tester.analyze import computeTime
+from tester.analyze_with_dup import computeTime
 
 
 DATA_PATH   = "data"
@@ -30,10 +30,14 @@ def write_test_result(index, payload, file_id,  num_test, qos, path=DATA_PATH):
         line.append("---MQTT TEST n.{0}\n".format(index))
         line.append("|- FILENAME: {}\n".format(file_id))
         line.append("|- PAYLOAD :{}\n".format(payload))
+        line.append("|- QoS :{}\n".format(qos))
         line.append("|- ITERATION:{0}\n".format(num_test))
-        line.append("|- PDrop:{0}\n".format(data.get_packet_drop(payload)))
-        line.append("|- E2E:{0}\n".format(data.get_e2e()))
-        line.append("|- TCP Overhead:{}\n".format(data.get_tcp_overhead()))
+        line.append("|- PDrop:{0} MQTT_PAYLOAD / TCP+MQTT_TCP\n".format(data.get_packet_drop()))
+        min_e2e, max_e2e, avg_e2e = data.get_new_e2e()
+        line.append("|- E2E: Min:{0}, Max:{1}, Avg{2}\n".format(min_e2e, max_e2e, avg_e2e))
+        overhead_tcp, overhead_mqtt = data.get_tcp_overhead()
+        line.append("|- TCP Overhead:{} [TCP_ONLY / TCP+MQTT_TCP]\n".format(overhead_tcp))
+        line.append("|- TCP Overhead:{} [MQTT_PAYLOAD / FULL_TCP]\n".format(overhead_mqtt))
         line.append("|- PDR: {0}\n".format(data.get_pdr()))
         line.append("\n")
         fw.writelines(" ".join(line))
