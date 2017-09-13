@@ -8,23 +8,23 @@ from tester.write_ouput import write_test_result
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-def start_mqtt_client(set_qos, payload_size):
 
-    payload = "[START PAYLOAD - SIZE BYTE {0}]".format(payload_size)
-    stop    = "[END PAYLOAD]"
-    num_char = payload_size - len(payload) - len (stop)
+def create_paylod(size, num):
+    payload = "[START PAYLOAD - N.{1} SIZE BYTE {0}]".format(size, num)
+    stop = "[END PAYLOAD N.{0}]".format(num)
+    num_char = size - len(payload) - len(stop)
     for i in range(num_char):
         payload += "X"
-    payload+=stop
+    payload += stop
+    return payload
+
+def start_mqtt_client(set_qos, payload_size):
 
 
-    #logger.debug("Payload size: %d" % len(payload))
-
-    params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, TOPIC, payload)
-
-    #logger.debug(params)
     for count in range( N_PACKET_SEND):
-        print(" >>> Sending packt n. %d/%s  \t Payload: %s" %(count+1, N_PACKET_SEND, payload_size))
+
+        params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, TOPIC, create_paylod(payload_size, count))
+        print(" >>> Sending packet n.%d/%s \tPayload: %s" %(count+1, N_PACKET_SEND, payload_size))
         os.system(params)
 
 
