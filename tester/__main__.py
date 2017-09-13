@@ -10,13 +10,17 @@ logger.setLevel(logging.DEBUG)
 
 def start_mqtt_client(set_qos, payload_size):
 
-    payload = ""
-    for i in range(payload_size):
+    payload = "[START PAYLOAD - SIZE BYTE {0}]".format(payload_size)
+    stop    = "[END PAYLOAD]"
+    num_char = payload_size - len(payload) - len (stop)
+    for i in range(num_char):
         payload += "X"
+    payload+=stop
+
 
     #logger.debug("Payload size: %d" % len(payload))
 
-    params = "mosquitto_pub -q %d -t %s -m %s" % (set_qos, TOPIC, payload)
+    params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, TOPIC, payload)
 
     #logger.debug(params)
     for count in range( N_PACKET_SEND):
