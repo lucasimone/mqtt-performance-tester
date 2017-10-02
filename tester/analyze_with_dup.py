@@ -2,7 +2,7 @@ import json
 import traceback
 import sys
 from tester.commands import extract_field
-from tester.commands import packet
+from tester.commands import packet, get_num_ids
 from tester import N_PACKET_SEND, QoS
 
 
@@ -403,17 +403,28 @@ class mqtt_performance():
 
 
     def get_pdr(self):
-        #filter = self.MQTT_PUB_ACK
-        #if self.qos == 2:
-        #    filter = self.MQTT_PUB_COM
-        #data = self.filter_by(filter)
 
+        pub = 0
+        ack = 0
+        sequence = dict()
+        for pkt in self.packets:
+            if pkt.mid not in sequence and pkt.mid != -1:
+                sequence[pkt.mid] = mqtt_e2e()
+            if pkt.mid != -1:
+                sequence[pkt.mid].add(pkt)
+                if pkt.type == self.MQTT_PUB:
+                    pub += 1
+                else:
+                    ack += 1
 
-        #counter = len(data)
-        counter = len(self.pubAck)
-
-        pdr = (counter *1.0 / len(self.pubMessage)) * 100
-        print("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (len(self.pubAck), len(self.pubMessage), pdr, N_PACKET_SEND))
+        #
+        #
+        #
+        # counter = len(self.pubAck)
+        #pdr = (counter *1.0 / len(self.pubMessage)) * 100
+        pdr = (ack * 1.0 / pub) * 100
+        #print("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (len(self.pubAck), len(self.pubMessage), pdr, N_PACKET_SEND))
+        print("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (ack, pub, pdr, N_PACKET_SEND))
         return pdr
 
     def get_size(self, protocol):
