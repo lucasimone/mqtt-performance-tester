@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-def create_paylod(size, num):
-    payload = "[START PAYLOAD - N.{1} SIZE BYTE {0}]".format(size, num)
+def create_paylod(size, num, qos):
+    payload = "[START PAYLOAD - N.{1} SIZE BYTE {0} QOS={2}]".format(size, num, qos)
     stop = "[END PAYLOAD N.{0}]".format(num)
     num_char = size - len(payload) - len(stop)
     for i in range(num_char):
@@ -20,10 +20,9 @@ def create_paylod(size, num):
 
 def start_mqtt_client(set_qos, payload_size):
 
-
     for count in range( N_PACKET_SEND):
 
-        params = "mosquitto_pub -q %d -t %s -m '%s'" % (set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count))
+        params = "mosquitto_pub -d -M 1 -q %d -t %s -m '%s'" % (set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count, set_qos))
         print(" >>> Sending packet n.%d/%s \tPayload: %s" %(count+1, N_PACKET_SEND, payload_size))
         os.system(params)
 
@@ -64,7 +63,7 @@ if __name__ == '__main__':
 
                 file_name = '%s.pcap' % file_id
                 launch_sniffer(file_name, IFC, other_filter=TCPDUMP_FILTER)
-                time.sleep(WAIT_START_TCPDUMP)
+                time.sleep(2)
                 start_mqtt_client(qos, payload)
                 print(" >>> SENT ALL PACKETS <<<<")
 
