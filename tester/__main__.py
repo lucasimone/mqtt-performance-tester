@@ -11,8 +11,8 @@ logger.setLevel(logging.DEBUG)
 
 
 def create_paylod(size, num, qos):
-    payload = "[START PAYLOAD - N.{1} SIZE BYTE {0} QOS={2}]".format(size, num, qos)
-    stop = "[END PAYLOAD N.{0}]".format(num)
+    payload = "[START PAYLOAD - N.{1} SIZE BYTE {0} QOS={2}]".format(size, num+1, qos)
+    stop = "[END PAYLOAD N.{0}]".format(num+1)
     num_char = size - len(payload) - len(stop)
     for i in range(num_char):
         payload += "X"
@@ -21,7 +21,7 @@ def create_paylod(size, num, qos):
 
 def start_mqtt_client(set_qos, payload_size):
 
-    for count in range( N_PACKET_SEND+1):
+    for count in range( N_PACKET_SEND):
 
         params = "mosquitto_pub -d -h %s -q %d -t %s -m '%s'" % (GW_IP, set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count, set_qos))
         print(" >>> Sending packet n.%d/%s \tPayload: %s" %(count+1, N_PACKET_SEND, payload_size))
