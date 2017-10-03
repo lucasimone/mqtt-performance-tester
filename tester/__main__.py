@@ -1,4 +1,5 @@
 import errno
+import shutil
 
 from tester import *
 from tester.commands import *
@@ -20,17 +21,19 @@ def create_paylod(size, num, qos):
 
 def start_mqtt_client(set_qos, payload_size):
 
-    for count in range( N_PACKET_SEND):
+    for count in range( N_PACKET_SEND+1):
 
-        params = "mosquitto_pub -d -M 1 -q %d -t %s -m '%s'" % (set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count, set_qos))
+        params = "mosquitto_pub -d -h %s -q %d -t %s -m '%s'" % (GW_IP, set_qos, "%s-%d"%(TOPIC,set_qos), create_paylod(payload_size, count, set_qos))
         print(" >>> Sending packet n.%d/%s \tPayload: %s" %(count+1, N_PACKET_SEND, payload_size))
         os.system(params)
 
 
 def backup_data_folder():
+
     if os.path.exists(DATADIR):
         old_data = '_'.join([DATADIR, str(time.time())])
         os.rename(DATADIR, old_data)
+        shutil.move(old_data, BACKUP)
 
     # generate dirs
     for d in TMPDIR, DATADIR, LOGDIR, BACKUP:
@@ -40,8 +43,6 @@ def backup_data_folder():
             if e.errno != errno.EEXIST:
                 raise
 
-    if old_data:
-        os.rename(old_data, "%s/%s" % (BACKUP, old_data))
 
 if __name__ == '__main__':
 
@@ -58,7 +59,9 @@ if __name__ == '__main__':
                                     "qos",
                                     str(qos),
                                     "payload",
-                                    str(payload)
+                                    str(payload),
+                                    "num_req",
+                                    str( N_PACKET_SEND)
                                     ]))
 
                 file_name = '%s.pcap' % file_id
@@ -67,12 +70,12 @@ if __name__ == '__main__':
                 start_mqtt_client(qos, payload)
                 print(" >>> SENT ALL PACKETS <<<<")
 
-                check_end_of_transmission(file_name, qos, N_PACKET_SEND)
-                logger.debug("KILL TCPDUMP...")
+                #check_end_of_transmission(file_name, qos, N_PACKET_SEND)
+                #logger.debug("KILL TCPDUMP...")
                 stop_sniffer()
 
                 decode_pcap(file_name)
-                write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
+                #write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
 
                 index+=1
 
