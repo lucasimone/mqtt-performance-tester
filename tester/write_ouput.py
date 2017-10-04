@@ -7,7 +7,6 @@ TEST_RESULT = "report.txt"
 GRAPH_RESULT = "e2e.dat"
 
 
-
 def init_output_file(num_test, path = DATA_PATH):
 
     filename = "/".join([".", path, TEST_RESULT])
@@ -23,8 +22,6 @@ def write_test_result(index, payload, file_id,  num_test, qos, path=DATA_PATH):
 
     filename = "/".join([".", path, TEST_RESULT])
     data = computeTime('%s.json' % file_id,  qos=qos, num_test=num_test)
-
-
 
     with open(filename, "a") as fw:
         line = []
@@ -44,11 +41,6 @@ def write_test_result(index, payload, file_id,  num_test, qos, path=DATA_PATH):
         line.append("\n")
         fw.writelines(" ".join(line))
         fw.close()
-
-    #get path
-
-
-
 
 
 
