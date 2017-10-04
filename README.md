@@ -1,4 +1,4 @@
-## Mosquitto Performance Tester
+# MQTT Performance Tester
 ![Title](images/topology.png)
 
 
@@ -9,7 +9,7 @@ We used OpenSAND to simulate the SAT link and Mosquitto as MQTT Broker implement
 
 
 
-#Getting Started
+## Getting Started
 
 There are several information required to start this test.
 These are stored (at the moment) in the init file of the module.
@@ -21,17 +21,32 @@ Here the list:
 * Host: this is the real location where the publish wil be sent
 * Interface: this is the interface to sniff MQTT & TCP traffic.
 
-# Prerequisites
+## Prerequisites
 
-Python2 or 3 is requires and a linux based OS
+* A linux based OS
+* Python (2.x or 3.x)
+* [Moqsquitto](https://mosquitto.org/)
 
-## Running the tests.
 
-To start the test first of all please check that all params are set properly in the init file.
-Then, a simple shell script is available in the root of the project
+Since I had some issues installing Mosquitto on OsX  I put this useful link:
+[how to install-mqtt-server](https://simplifiedthinking.co.uk/2015/10/03/install-mqtt-server/)
+
+## Installing
 
 ```bash
-sudo ./start.sh
+clone https://github.com/lucasimone/mqtt-performance-tester.git
+cd mqtt-performance-tester
+pip install -r requirements.txt
+```
+
+
+
+## Running the test
+
+To execute the performance tests use this script
+
+```bash
+sudo ./start_test.sh.sh
 ```
 
 or use the python syntax as follow:
@@ -40,10 +55,9 @@ or use the python syntax as follow:
 python -m tester
 ```
 
+If you don't have a configuration file in the cfg folder the default one will be automatically generated.
+Logs of the test will be stored int he Log folder.
 
-
-## Install Mosquitto on MAC OsX
-Since I had some issues installing  Mosquitto on Mac I put this useful [link: install-mqtt-server](https://simplifiedthinking.co.uk/2015/10/03/install-mqtt-server/)
 
 
 ## Authors
@@ -55,14 +69,7 @@ See also the list of [contributors](contributors.md) who participated in this pr
 
 ## Acknowledgments
 
-### FreeBSD License
-Copyright (c) Luca Lamorte
-
+## MIT License
+Copyright (c) 2017, Luca Lamorte
 All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
