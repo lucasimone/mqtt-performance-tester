@@ -35,7 +35,7 @@ def start_mqtt_client(qos, payload_size, num, topic, host):
 
 
 def launch_sniffer(filename, filter_if, other_filter=None):
-    logger.info('Launching packet capture..')
+    logger.info('Start capturing packets...')
 
     if other_filter is None:
         other_filter = ''
@@ -50,17 +50,18 @@ def launch_sniffer(filename, filter_if, other_filter=None):
 
     # lets try to remove the filename in case there's a previous execution of the TC
     try:
-        params = 'rm ' + filename
-        os.system(params)
+        if os.path.exists(filename):
+            params = 'rm ' + filename
+            os.system(params)
     except:
         pass
 
     #params = 'tcpdump -i ' + filter_if  + ' ' + other_filter + ' -vv -w ' + filename + ' &'
     params = 'tcpdump -i %s -vv %s -w %s &' % (filter_if, other_filter, filename)
-    logger.info('Creating process TCPDUMP with: %s' % params)
+    logger.info('Creating TCPDUMP process as follow:[ %s ]' % params)
     os.system(params)
 
-    # TODO we need to catch tcpdump: <<tun0: No such device exists>> from stderr
+    time.sleep(2)
 
     return True
 
