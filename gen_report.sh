@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python  -m mqtt_performance_tester.gen_report
+sudo python  -m mqtt_performance_tester.gen_report

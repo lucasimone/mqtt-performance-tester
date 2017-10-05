@@ -1,4 +1,4 @@
-from mqtt_performance_tester.analyze_with_dup import computeTime
+from mqtt_performance_tester.analyze_with_dup import computeTime, compute_e2e_latency
 
 
 DATA_PATH   = "data"
@@ -17,26 +17,54 @@ def init_output_file(num_test, path = DATA_PATH):
         fw.close()
 
 
-def write_test_result(index, payload, file_id,  num_test, qos, path=DATA_PATH):
+def write_test_result(index, payload, file_id,  num_test, qos, dir_path=DATA_PATH):
 
-    filename = "/".join([".", path, TEST_RESULT])
+    filename = "/".join([".", dir_path, TEST_RESULT])
     data = computeTime('%s.json' % file_id,  qos=qos, num_test=num_test)
+    min_e2e, max_e2e, avg_e2e = compute_e2e_latency(data.packets)
+    overhead_tcp, overhead_mqtt = data.get_tcp_overhead()
 
     with open(filename, "a") as fw:
         line = []
         line.append("\n")
-        line.append("---MQTT TEST n.{0}\n".format(index))
-        line.append("|- FILENAME: {}\n".format(file_id))
-        line.append("|- PAYLOAD :{}\n".format(payload))
-        line.append("|- QoS :{}\n".format(qos))
-        line.append("|- ITERATION:{0}\n".format(num_test))
-        line.append("|- PDrop:{0} MQTT_PAYLOAD / TCP+MQTT_TCP\n".format(data.get_packet_drop()))
-        min_e2e, max_e2e, avg_e2e = data.get_e2e_random_sequence()
-        line.append("|- E2E: Min: {0}, Max: {1}, Avg: {2}\n".format(min_e2e, max_e2e, avg_e2e))
-        overhead_tcp, overhead_mqtt = data.get_tcp_overhead()
-        line.append("|- TCP Overhead:{} [TCP_ONLY / TCP+MQTT_TCP]\n".format(overhead_tcp))
-        line.append("|- TCP Overhead:{} [MQTT_PAYLOAD / FULL_TCP]\n".format(overhead_mqtt))
-        line.append("|- PDR: {0}\n".format(data.get_pdr()))
+        line.append(" |-------------------------------------------------\n")
+        line.append(" |-- MQTT TEST n.{0}\n".format(index))
+        line.append(" |-------------------------------------------------\n")
+        line.append(" |-- FILENAME: {}\n".format(file_id))
+        line.append(" |-- PAYLOAD :{}\n".format(payload))
+        line.append(" |-- QoS :{}\n".format(qos))
+        line.append(" |-- ITERATION:{0}\n".format(num_test))
+        line.append(" |------------------ Statistics ------------------\n")
+        line.append(" |- Packet Drop:{0}% MQTT_PAYLOAD / TCP+MQTT_TCP\n".format(data.get_packet_drop()))
+        line.append(" |-------------------------------------------------\n")
+        line.append(" |- E2E Latency: Min: {0}\n".format(min_e2e))
+        line.append(" |- E2E Latency: MAX: {0}\n".format(max_e2e))
+        line.append(" |- E2E Latency: AVG: {0}\n".format(avg_e2e))
+        line.append(" |-------------------------------------------------\n")
+        line.append(" |- TCP Overhead:{}% [ TCP_ONLY / TCP+MQTT_TCP]\n".format(overhead_tcp))
+        line.append(" |- TCP Overhead:{}% [ MQTT_PAYLOAD / FULL_TCP]\n".format(overhead_mqtt))
+        line.append(" |-------------------------------------------------\n")
+        line.append(" | Detected %d MQTT packets\n" % len(data.packets))
+        line.append(" |-------------------------------------------------\n")
+        for key in data.count_mqtt_type.keys():
+            line.append(' |---- n. {1} of MQTT msg: {0}\n'.format(key, data.count_mqtt_type[key]))
+        line.append(' |---------------------------------------\n')
+        line.append(" |---- %d TOTAL MQTT msg exchanged \n" % (data.num_mqtt))
+        line.append(' |---------------------------------------\n')
+        line.append(" |--- TCP Message:         %s\n" % data.num_tcp)
+        line.append(' |--- MQTT Message:        %d\n' % data.num_mqtt)
+        line.append(' |--- UDP Message:         %d\n' % data.num_upd)
+        line.append(' |--- OTHER Message:       %d\n' % data.num_others)
+        line.append(' |---------------------------------------\n')
+        line.append(' |--- TCP  packets size:   %d\n' % data.size_tcp)
+        line.append(' |--- MQTT TCP size:       %d\n' % data.mqtt_tcp_size)
+        line.append(' |--- TCP + TCP:MQTT size: %d\n' % (data.size_tcp + data.mqtt_tcp_size))
+        line.append(' |--- MQTT payload size:   %d\n' % data.mqtt_payload_size)
+        line.append(' |--- UPD packets size:    %d\n' % data.size_udp)
+        line.append(' |--- OTHERS packets size: %d\n' % data.size_others)
+        line.append(' |--- TCP+UDP+OTHER size:  %d\n' % (data.size_tcp + data.size_udp + data.size_others + data.mqtt_tcp_size))
+        line.append(' |--- TOTAL Frames size:   %d\n' % data.frames_size)
+        line.append(" |-------------------------------------------------\n")
         line.append("\n")
         fw.writelines(" ".join(line))
         fw.close()
