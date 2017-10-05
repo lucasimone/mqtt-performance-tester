@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MQTT Performance Tester
 ![Title](images/topology.png)
 
@@ -75,3 +76,14 @@ See also the list of [contributors](contributors.md) who participated in this pr
 Copyright (c) 2017, Luca Lamorte
 All rights reserved.
 
+=======
+# Mosquitto tester
+
+
+
+# Configutation
+
+
+## Install in MAC
+https://simplifiedthinking.co.uk/2015/10/03/install-mqtt-server/
+>>>>>>> ff9cb93aaff52eaca6b9614d1cddd5323457720c
