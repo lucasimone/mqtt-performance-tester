@@ -5,11 +5,25 @@ import errno
 import logging
 from configparser import ConfigParser
 
+TMPDIR  = "tmp"
+DATADIR = "data"
+LOGDIR  = "log"
+BACKUP  = "backup"
+CFG_DIR = "cfg"
+
+# generate dirs
+for d in TMPDIR, DATADIR, LOGDIR, BACKUP:
+    try:
+        os.makedirs(d)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+
 LOG_FORMAT   = '%(levelname)-7s | %(asctime)s | %(name)40s:%(lineno)-3d| %(message)s'
 LOG_FILENAME = "log/mqtt_performance.log"
 
 # Configure Logger
-logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, format=LOG_FORMAT, filemode="a")
+logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, format=LOG_FORMAT)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter(LOG_FORMAT)
@@ -25,12 +39,8 @@ logger.addHandler(sh)
 logger.propagate = True
 
 
-FILENAME = "data/mqtt"
-TMPDIR = "tmp"
-DATADIR = "data"
-LOGDIR = "log"
-BACKUP = "backup"
-CFG_DIR = "cfg"
+
+
 
 
 def backup_data_folder():
@@ -42,13 +52,7 @@ def backup_data_folder():
         os.rename(DATADIR, old_data)
         shutil.move(old_data, BACKUP)
 
-    # generate dirs
-    for d in TMPDIR, DATADIR, LOGDIR, BACKUP:
-        try:
-            os.makedirs(d)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise
+
 
 def set_default_cfg():
 

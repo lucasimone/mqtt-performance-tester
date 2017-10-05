@@ -1,9 +1,7 @@
 import json
 import traceback
 import sys
-import logging
-from mqtt_performance_tester.mqtt_utils import extract_field
-from mqtt_performance_tester import N_PACKET_SEND, QoS
+from mqtt_performance_tester.mqtt_utils import *
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -164,16 +162,16 @@ class mqtt_performance():
     def get_e2e(self):
         min = 100000
         max = -1
-        msg_type = self.MQTT_PUB_ACK
+        msg_type = MQTT_PUB_ACK
         if self.qos == 2:
-            msg_type = self.MQTT_PUB_COM
+            msg_type = MQTT_PUB_COM
 
         avg_time = 0
         counter  = 0
         data = self.filter_by(msg_type)
 
         for msg in data:
-            msg_pub = self.find_msg_with_id(msg.mid, self.MQTT_PUB)
+            msg_pub = self.find_msg_with_id(msg.mid, MQTT_PUB)
 
             mqtt_time  = (float(msg.epoc_time) - float(msg_pub.epoc_time))
             if mqtt_time > max:
@@ -195,23 +193,23 @@ class mqtt_performance():
         return avg_time
 
 
-    def get_pdr(self):
-        filter = self.MQTT_PUB_ACK
+    def get_pdr(self, num):
+        filter = MQTT_PUB_ACK
         if self.qos == 2:
-            filter = self.MQTT_PUB_COM
+            filter = MQTT_PUB_COM
         data = self.filter_by(filter)
 
 
         counter = len(data)
 
         pdr = (counter *1.0 / self.num_request) * 100
-        logger.debug("[PDR] The PDR for is %f [n. %d %s Pkt / Pkt sent %d] - REQUEST: %d" % (pdr, counter, filter, self.num_request, N_PACKET_SEND))
+        logger.debug("[PDR] The PDR for is %f [n. %d %s Pkt / Pkt sent %d] - REQUEST: %d" % (pdr, counter, filter, self.num_request, num))
         return pdr
 
     def get_size(self, protocol):
-        if protocol == self.TCP:
+        if protocol == TCP:
             return self.size_tcp
-        elif protocol == self.MQTT:
+        elif protocol == MQTT:
             return self.size_mqtt
         else:
             return 0
@@ -221,11 +219,11 @@ class mqtt_performance():
     def get_packet_drop(self, paylod_size):
 
         if self.qos == 1:
-            num_ack = self.get_num(self.MQTT_PUB_ACK)
-            ack_type = self.MQTT_PUB_ACK
+            num_ack = self.get_num(MQTT_PUB_ACK)
+            ack_type = MQTT_PUB_ACK
         else:
-            num_ack = self.get_num(self.MQTT_PUB_COM)
-            ack_type = self.MQTT_PUB_COM
+            num_ack = self.get_num(MQTT_PUB_COM)
+            ack_type = MQTT_PUB_COM
         size  = self.size_tcp + self.size_mqtt
 
         if float(size) == 0:
@@ -264,14 +262,21 @@ if __name__ == '__main__':
     logger.debug("#")
     logger.debug('#######################################################')
 
-    json_file = "../mqtt_capture_qos_1_payload_1024.json"
+    sh = logging.StreamHandler()
+    sh.setLevel(logging.DEBUG)
+    LOG_FORMAT = '%(levelname)-7s | %(asctime)s | %(name)40s:%(lineno)-3d| %(message)s'
+    formatter = logging.Formatter(LOG_FORMAT)
+    sh.setFormatter(formatter)
+    logger.addHandler(sh)
+
+    json_file = "backup/data_1507099161.54/mqtt_qos_1_payload_128_num_req_500.json"
 
     with open(json_file) as file:
         pkts = json.load(file)
         file.close()
 
-    demo = mqtt_performance(pkts, N_PACKET_SEND, QoS)
+    demo = mqtt_performance(pkts, 500, 1)
     demo.get_e2e()
-    demo.get_pdr()
+    demo.get_pdr(500)
     demo.get_packet_drop(256)
     demo.get_tcp_overhead()

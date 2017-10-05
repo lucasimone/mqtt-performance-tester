@@ -19,6 +19,7 @@ if __name__ == '__main__':
     N_PACKET_SEND = Config.getint("MQTT", "N_PACKET_SEND")
     GW_IP = Config.get("PING", "GW_IP")
     TOPIC = Config.get("MQTT", "TOPIC")
+    FILENAME = Config.get("PATH", "filename")
 
     logger.debug("==== CONFIGURATION Values")
     logger.debug("QoS: {}".format(Config.get("MQTT", "QoS")))

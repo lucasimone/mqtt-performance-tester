@@ -1,14 +1,15 @@
 import click
 import glob
-import logging
 import os
 import datetime
+import logging.handlers
+from mqtt_performance_tester.commands import decode_pcap
+from mqtt_performance_tester.analyze_with_dup import computeTime
 
 LOG_FORMAT   = '%(levelname)-7s | %(asctime)s | %(name)40s:%(lineno)-3d| %(message)s'
 LOG_FILENAME = "log/gen_report.log"
 
-# Configure Logger
-logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG, format=LOG_FORMAT, filemode="a")
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter(LOG_FORMAT)
@@ -18,8 +19,15 @@ sh.setFormatter(formatter)
 logger.addHandler(sh)
 logger.propagate = True
 
+fh = logging.handlers.RotatingFileHandler(LOG_FILENAME, mode='a', maxBytes=0, backupCount=0, encoding=None, delay=0)
+fh.setFormatter(formatter)
+fh.setLevel(logging.DEBUG)
+logger.addHandler(fh)
+
+logger.warning(" =====> New GenReport session started NOW !!!!")
+
 @click.command()
-@click.option('--path', prompt='Path', help='The directory to check all data logs')
+@click.option('--path', prompt='PCAP(s) root Path', help='The directory to check all data logs')
 
 
 
@@ -29,7 +37,7 @@ def analyze_in_path(path):
         logger.error("This directory does nor exists!")
         exit(-1)
 
-    logger.error("Start iterating inside %s" %path)
+    logger.info("Start iterating inside %s" %path)
     for directory in glob.glob('%s/*/' % path):
         logger.info("- Check directoty %s ..." % directory)
         report_file = "%s/report.txt" % directory
@@ -44,26 +52,35 @@ def analyze_in_path(path):
 
 def generate_report(data_path):
 
+
     path = "%s/" % data_path
     index = 0
+    logger.info("[-] Inspect Files in : %s" % path)
     #init_output_file(data_path, num_test)  # INIT FILE
 
-    for filename in glob.glob(os.path.join(path, '*.json')):
+    for filename in glob.glob(os.path.join(path, '*.pcap')):
 
-        print("-- ANALYZE File : %s" %filename)
+        logger.info("[-] Read File : %s" % filename)
+
         try:
 
-            # file_id = filename.replace(data_path, "")
-            file_id = filename.replace(".json", "")
+            file_id = filename.replace(".pcap", "")
 
-            file_info = filename.replace("%scaputure_"%data_path, "")
+            if not os.path.exists("%s.json"%file_id):
+                decode_pcap(filename)
 
-            file_info = file_info.split("_")
-            timeout = file_info[1]
-            rand_factor = file_info[3]
-            retry = file_info[5]
-            res = file_info[6]
+            logger.info("[-] |--- FileID : {}".format(file_id))
+            file_info = file_id.split("_")
+            qos = file_info[3]
+            payload = file_info[5]
+            iteration = file_info[8]
 
+            logger.info("[-] |--- QoS: {}".format(qos))
+            logger.info("[-] |--- Payload: {}".format(payload))
+            logger.info("[-] |--- Iteration: {}".format(iteration))
+
+            demo = computeTime("%s.json"%file_id, iteration, qos)
+            logger.debug(demo.get_e2e_random_sequence())
 
             # write line for this filename
             #write_test_result(index, res, timeout, rand_factor, retry, file_id, data_path, num_test)
@@ -75,7 +92,9 @@ def generate_report(data_path):
 
 
 if __name__ == '__main__':
-    logger.error("GenReport script. Please provide the path where all logs are stored")
+
+
+    logger.info("GET PATH")
     analyze_in_path()
 
 

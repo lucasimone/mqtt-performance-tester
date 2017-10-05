@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # MQTT Performance Tester
 ![Title](images/topology.png)
 
@@ -86,4 +85,3 @@ All rights reserved.
 
 ## Install in MAC
 https://simplifiedthinking.co.uk/2015/10/03/install-mqtt-server/
->>>>>>> ff9cb93aaff52eaca6b9614d1cddd5323457720c

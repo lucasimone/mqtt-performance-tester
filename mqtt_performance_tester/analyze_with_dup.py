@@ -1,13 +1,9 @@
-import logging
-
-from mqtt_performance_tester.mqtt_utils import packet
-from mqtt_performance_tester import N_PACKET_SEND, QoS
 from mqtt_performance_tester.data_types import mqtt_e2e
+from mqtt_performance_tester.mqtt_utils import *
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-### CLASS FOR COMPUTE ALL THE PERFORMANCE PARAMS
 
 class mqtt_performance():
 
@@ -122,15 +118,19 @@ class mqtt_performance():
                     if pkt.mid not in self.mqtt_ids:
                         self.mqtt_ids.append(pkt.mid)
                     self.num_mqtt += 1
-                    logger.debug("- MQTT n.{0}{1}".format(self.mqtt_counter, repr(pkt)))
+
+                    logger.debug("- MQTT n.{0} {1}".format(self.mqtt_counter, repr(pkt)))
+                    if pkt.type == MQTT_DISCONNECT:
+                        logger.debug(" ------------- ")
+
                     self.mqtt_payload_size += pkt.payload_size
                     self.mqtt_tcp_size     += pkt.protocol_size
                     self.packets.append(pkt)
 
                     # to compute the E2E
-                    if pkt.type == self.MQTT_PUB:
+                    if pkt.type == MQTT_PUB:
                         self.pubMessage.append(pkt)
-                    elif pkt.type == self.MQTT_PUB_ACK or pkt.type == self.MQTT_PUB_COM:
+                    elif pkt.type == MQTT_PUB_ACK or pkt.type == MQTT_PUB_COM:
                         self.pubAck.append(pkt)
 
                 elif "tcp" in pkt.protocol:
@@ -158,7 +158,8 @@ class mqtt_performance():
 
     def print_report(self):
 
-        print ("\n\n")
+
+        logger.debug('#######################################')
         logger.debug("Detected %d MQTT packets" % len(self.packets))
         logger.debug('#######################################')
         for key in self.count_mqtt_type.keys():
@@ -194,9 +195,9 @@ class mqtt_performance():
         for pkt in self.packets:
             if pkt.mid not in sequence:
                 sequence[pkt.mid] = 0
-            if pkt.type == self.MQTT_PUB:
+            if pkt.type == MQTT_PUB:
                 sequence[pkt.mid] += 1
-            elif pkt.type == self.MQTT_PUB_ACK or pkt.type == self.MQTT_PUB_REL:
+            elif pkt.type == MQTT_PUB_ACK or pkt.type == MQTT_PUB_REL:
                 sequence[pkt.mid] -= 1
 
 
@@ -289,19 +290,19 @@ class mqtt_performance():
 
         min = 100000
         max = -1
-        msg_type = self.MQTT_PUB_ACK
+        msg_type = MQTT_PUB_ACK
         if self.qos == 2:
-            msg_type = self.MQTT_PUB_COM
+            msg_type = MQTT_PUB_COM
 
         avg_time = 0
         counter  = 0
         data = self.filter_by(msg_type)
 
         for msg in data:
-            msg_pub = self.find_msg_with_id(msg.mid, self.MQTT_PUB)
+            msg_pub = self.find_msg_with_id(msg.mid, MQTT_PUB)
 
             mqtt_time  = (float(msg.epoc_time) - float(msg_pub.epoc_time))
-            logger.debug("{0}[{5}]:{1} - {2}[{6}]:{3} = {4}".format(msg_type,msg.epoc_time,  self.MQTT_PUB, msg_pub.epoc_time, mqtt_time, msg.mid, msg_pub.mid))
+            logger.debug("{0}[{5}]:{1} - {2}[{6}]:{3} = {4}".format(msg_type,msg.epoc_time,  MQTT_PUB, msg_pub.epoc_time, mqtt_time, msg.mid, msg_pub.mid))
             if mqtt_time > max:
                 max = mqtt_time
             if mqtt_time < min:
@@ -321,7 +322,7 @@ class mqtt_performance():
         return avg_time
 
 
-    def get_pdr(self):
+    def get_pdr(self, num):
 
         pub = 0
         ack = 0
@@ -331,7 +332,7 @@ class mqtt_performance():
                 sequence[pkt.mid] = mqtt_e2e()
             if pkt.mid != -1:
                 sequence[pkt.mid].add(pkt)
-                if pkt.type == self.MQTT_PUB:
+                if pkt.type == MQTT_PUB:
                     pub += 1
                 else:
                     ack += 1
@@ -343,13 +344,13 @@ class mqtt_performance():
         #pdr = (counter *1.0 / len(self.pubMessage)) * 100
         pdr = (ack * 1.0 / pub) * 100
         #print("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (len(self.pubAck), len(self.pubMessage), pdr, N_PACKET_SEND))
-        logger.debug("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (ack, pub, pdr, N_PACKET_SEND))
+        logger.debug("[Packet Delivery Ratio] ACK[%d] / PUB[%d] = %f [REQUEST sent: %d]" % (ack, pub, pdr, num))
         return pdr
 
     def get_size(self, protocol):
-        if protocol == self.TCP:
+        if protocol == TCP:
             return self.size_tcp
-        elif protocol == self.MQTT:
+        elif protocol == MQTT:
             return self.size_mqtt
         else:
             return 0
@@ -411,9 +412,16 @@ if __name__ == '__main__':
     logger.debug("#")
     logger.debug('#######################################################')
 
-    json_file = "../data/mqtt_capture_qos_1_payload_128.json"
+    sh = logging.StreamHandler()
+    sh.setLevel(logging.DEBUG)
+    LOG_FORMAT = '%(levelname)-7s | %(asctime)s | %(message)s'
+    formatter = logging.Formatter(LOG_FORMAT)
+    sh.setFormatter(formatter)
+    logger.addHandler(sh)
 
-    demo = computeTime(json_file, N_PACKET_SEND, QoS[0])
+    json_file = "backup/data_1507099161.54/mqtt_qos_1_payload_128_num_req_500.json"
+
+    demo = computeTime(json_file, 500, 1)
     logger.debug(demo.get_e2e_random_sequence())
     #demo.get_new_e2e()
     #demo.get_pdr()

@@ -22,6 +22,7 @@ MQTT_CON_ACK     = 'Connect Ack'
 MQTT_CON         = 'Connect Message'
 MQTT_PING_REQ    = 'Ping Request'
 MQTT_PING_RES    = 'Ping Response'
+MQTT_DISCONNECT  =  "Disconnect Req"
 MQTT_TCP_SPUR    = '[TCP Spurious'
 
 
