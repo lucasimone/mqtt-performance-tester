@@ -51,6 +51,7 @@ def backup_data_folder():
         old_data = '@'.join([DATADIR, time_val])
         os.rename(DATADIR, old_data)
         shutil.move(old_data, BACKUP)
+    os.makedirs(DATADIR)
 
 
 
