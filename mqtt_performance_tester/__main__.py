@@ -20,15 +20,16 @@ if __name__ == '__main__':
     GW_IP = Config.get("PING", "GW_IP")
     TOPIC = Config.get("MQTT", "TOPIC")
 
+    logger.debug("==== CONFIGURATION Values")
     logger.debug("QoS: {}".format(Config.get("MQTT", "QoS")))
     logger.debug("PAYLOADs: {}".format(PAYLOAD_LIST))
     logger.debug("Iteration: {}".format(N_PACKET_SEND))
-
-
+    logger.debug("==== ")
+    logger.info("Start Publish Messages...")
     index = 0
     for qos in QoS:
         for payload in PAYLOAD_LIST:
-
+                # make file name using params of this iteration
                 file_id = ('_'.join([FILENAME,
                                     "qos",
                                     str(qos),
@@ -40,18 +41,16 @@ if __name__ == '__main__':
 
                 file_name = '%s.pcap' % file_id
                 launch_sniffer(file_name, IFC, other_filter=TCPDUMP_FILTER)
-                time.sleep(2)
                 start_mqtt_client(qos, payload, N_PACKET_SEND, TOPIC, GW_IP)
                 logger.info(" >>> SENT ALL PACKETS <<<<")
 
-                #check_end_of_transmission(file_name, qos, N_PACKET_SEND)
-                #logger.debug("KILL TCPDUMP...")
+                # check_end_of_transmission(file_name, qos, N_PACKET_SEND)
+                # logger.debug("KILL TCPDUMP...")
                 stop_sniffer()
 
-                decode_pcap(file_name)
-                #write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
+                # decode_pcap(file_name)
+                # write_test_result(index, payload, file_id, N_PACKET_SEND, qos)
 
-                index+=1
+                index += 1
 
-
-    logger.debug("Performance Test completed!")
+    logger.info("Performance Test completed!")

@@ -26,6 +26,8 @@ Here the list:
 * A linux based OS
 * Python (2.x or 3.x)
 * [Moqsquitto](https://mosquitto.org/)
+* [TSHARK](https://www.wireshark.org/docs/man-pages/tshark.html)
+* [TCPDUMP](http://www.tcpdump.org/)
 
 
 Since I had some issues installing Mosquitto on OsX  I put this useful link:
