@@ -28,9 +28,6 @@ logger.warning(" =====> New GenReport session started NOW !!!!")
 
 @click.command()
 @click.option('--path', prompt='PCAP(s) Path [ Default=backup]', help='The directory to check all data logs')
-
-
-
 def analyze_in_path(path):
 
     if path == "":
