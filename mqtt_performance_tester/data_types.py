@@ -21,6 +21,7 @@ class packet():
         self.epoc_time = -1
         self.qos = -1
         self.mid = -1
+        self.body = ""
 
 
     def copy(tmp):
@@ -40,9 +41,9 @@ class packet():
 
 
     def __repr__(self):
-        return "---FRAME[%s] mid:%s \t%s \tType:%s \tFrame|Protocol|Payload Size:%s|%s|%s \tTime:%s \tEpoc:%s" \
+        return "---FRAME[%s] mid:%s \t%s \tType:%s \tFrame|Protocol|Payload Size:%s|%s|%s \tTime:%s \tEpoc:%s \n Body:%s" \
                %(self.frame_id, self.mid, self.protocol, self.type, self.frame_size, self.protocol_size,
-                 self.payload_size, self.delta_time, self.epoc_time)
+                 self.payload_size, self.delta_time, self.epoc_time, self.body)
 
 
 

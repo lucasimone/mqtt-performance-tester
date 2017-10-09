@@ -42,24 +42,32 @@ pip install -r requirements.txt
 ```
 
 
-
 ## Running the test
 
 To execute the performance tests use this script
 
 ```bash
-sudo ./start_test.sh.sh
+sudo ./start_test.sh
 ```
 
 or use the python syntax as follow:
 
 ```bash
-python -m tester
+python -m mqtt_performance_tester
 ```
 
 If you don't have a configuration file in the cfg folder the default one will be automatically generated.
 Logs of the test will be stored int he Log folder.
 
+
+
+## Create performance report
+
+To make the test simpler, the report is generated post-mortem.
+Please use the following script to create it, providing the root folder where all the PCAP files are stored.
+```bash
+gen_report.sh
+```
 
 
 ## Authors
