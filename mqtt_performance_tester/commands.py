@@ -51,6 +51,7 @@ def launch_sniffer(filename, filter_if, other_filter=None):
     # lets try to remove the filename in case there's a previous execution of the TC
     try:
         if os.path.exists(filename):
+            logger.info("Remove %s ..."%filename)
             params = 'rm ' + filename
             os.system(params)
     except:
