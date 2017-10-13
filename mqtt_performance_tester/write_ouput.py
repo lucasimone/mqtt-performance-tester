@@ -21,7 +21,8 @@ def write_test_result(index, payload, file_id,  num_test, qos, dir_path=DATA_PAT
 
     filename = "/".join([".", dir_path, TEST_RESULT])
     data = computeTime('%s.json' % file_id,  qos=qos, num_test=num_test)
-    min_e2e, max_e2e, avg_e2e = compute_e2e_latency(data.packets)
+    min_e2e, max_e2e, avg_e2e, values= compute_e2e_latency(data.packets)
+    print ("OK")
     overhead_tcp, overhead_mqtt = data.get_tcp_overhead()
 
     with open(filename, "a") as fw:
