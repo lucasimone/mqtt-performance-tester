@@ -247,16 +247,17 @@ def compute_e2e_latency(pkts):
 
     for p in pkts:
         sequence.append(p.type)
+        logger.debug("{0} with MID: {1} - time {2}".format(p.type, p.mid, p.epoc_time))
         if p.type == MQTT_PUB:
-            #if wait_ack:
-                # logger.warning("[-] Retransmission of Pub")
-                #logger.warning(repr(p))
+            if wait_ack:
+                logger.warning("[-] Retransmission of Pub ")
+                logger.warning(repr(p))
             e2e = p.epoc_time
             wait_ack = True
         elif p.type == MQTT_PUB_ACK or p.type == MQTT_PUB_COM:
             if wait_ack:
                 values.append (float(p.epoc_time - e2e))
-                #logger.warning("[-] Message completed in {}".format(p.epoc_time - e2e))
+                logger.warning("[-] Message completed in {}".format(p.epoc_time - e2e))
                 wait_ack = False
                 # logger.warning("[-] Sequence: {}".format("| -> |".join(sequence)))
                 # sequence = []
@@ -284,7 +285,7 @@ if __name__ == '__main__':
     sh.setFormatter(formatter)
     logger.addHandler(sh)
 
-    json_file = "backup/data_1507099161.54/mqtt_qos_1_payload_1280_num_req_500.json"
+    json_file = "all_sim/data_500_mqtt_with_70%_off/mqtt_capture_qos_1_payload_1280_num_req_500.json"
 
     demo = computeTime(json_file, 500, 1)
     logger.debug("============== STATS ==============")
