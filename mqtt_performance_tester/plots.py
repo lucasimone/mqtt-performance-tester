@@ -204,7 +204,7 @@ def plot_cvs_iteration(filename):
         fig = plt.figure()
         ax = fig.add_subplot(111)
 
-        plt.axis([0, 500, 0, 80])
+        plt.axis([0, 100, 0, 100])
         ax.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.8)
         ax.xaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.8)
         values = payloads[payload]
@@ -227,6 +227,7 @@ def plot_cvs_iteration(filename):
         fig.savefig('es_500_mqtt_qos_%d_payload_%s_linkoff_%s.png' % (qos, payload, link_off), bbox_inches='tight')
 
 
+
     keys =  sorted([int(i) for i in payloads.keys()])
     values = dict()
     medians = dict()
@@ -234,12 +235,12 @@ def plot_cvs_iteration(filename):
         all_num =  payloads[str(k)]
         avg =  sum(all_num)*0.1 / len(all_num)
         medians[k] = avg
-        reduced = [x for x in all_num if x < 50]
+        reduced = [x for x in all_num if x < 100]
         values[k] = reduced
 
 
     fig = plt.figure()
-    plt.axis([0, 7, 0, 60])
+    plt.axis([0, 7, 0, 100])
     fig.canvas.set_window_title(filename)
     ax1 = fig.add_subplot(111)
 
@@ -291,7 +292,7 @@ def plot_cvs_iteration(filename):
 
 if __name__ == '__main__':
 
-    directory = "all_sim/data_500_mqtt_with_10%_off"
+    #directory = "all_sim/data_500_mqtt_with_10%_off"
     ## CREATE CSV FILES
 
     #compute_all_file("all_sim/data_500_mqtt_with_10%_off")
@@ -302,16 +303,23 @@ if __name__ == '__main__':
     # plot_e2e(directory)
     # create_cvs(directory)
 
-    plot_cvs_iteration('plots/data_500_mqtt_with_70%_off_qos_2.csv')
-    plot_cvs_iteration('plots/data_500_mqtt_with_70%_off_qos_1.csv')
 
+    path  = input("DIR:")
 
-    plot_cvs_iteration('plots/data_500_mqtt_with_10%_off_qos_1.csv')
-    plot_cvs_iteration('plots/data_500_mqtt_with_10%_off_qos_2.csv')
+    for filename in glob.glob(os.path.join(path, '*.csv')):
+        print("%s" %(filename))
+        plot_cvs_iteration("%s" %filename)
 
-
-    plot_cvs_iteration('plots/data_500_mqtt_with_30%_off_qos_1.csv')
-    plot_cvs_iteration('plots/data_500_mqtt_with_30%_off_qos_2.csv')
-
-    plot_cvs_iteration('plots/data_500_mqtt_with_50%_off_qos_1.csv')
-    plot_cvs_iteration('plots/data_500_mqtt_with_50%_off_qos_2.csv')
+    #plot_cvs_iteration('ld30_qos_1.csv')
+    # plot_cvs_iteration('plots/data_500_mqtt_with_70%_off_qos_1.csv')
+    #
+    #
+    # plot_cvs_iteration('plots/data_500_mqtt_with_10%_off_qos_1.csv')
+    # plot_cvs_iteration('plots/data_500_mqtt_with_10%_off_qos_2.csv')
+    #
+    #
+    # plot_cvs_iteration('plots/data_500_mqtt_with_30%_off_qos_1.csv')
+    # plot_cvs_iteration('plots/data_500_mqtt_with_30%_off_qos_2.csv')
+    #
+    # plot_cvs_iteration('plots/data_500_mqtt_with_50%_off_qos_1.csv')
+    # plot_cvs_iteration('plots/data_500_mqtt_with_50%_off_qos_2.csv')

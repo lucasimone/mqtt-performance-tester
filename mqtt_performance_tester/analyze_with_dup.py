@@ -112,6 +112,7 @@ class mqtt_performance():
 
 
 
+
     def add_packet(self, pkt):
         if pkt:
             if pkt.protocol:
@@ -244,16 +245,18 @@ def compute_e2e_latency(pkts):
     e2e = 0
     wait_ack = True
     sequence = []
-
+    index  = 0
     for p in pkts:
         sequence.append(p.type)
-        logger.debug("{0} with MID: {1} - time {2}".format(p.type, p.mid, p.epoc_time))
+        #logger.debug("{0} with MID: {1} - time {2}".format(p.type, p.mid, p.epoc_time))
         if p.type == MQTT_PUB:
             if wait_ack:
                 logger.warning("[-] Retransmission of Pub ")
                 logger.warning(repr(p))
             e2e = p.epoc_time
             wait_ack = True
+            logger.warning("[-] {0} Publish Message  ".format(index))
+            index += 1
         elif p.type == MQTT_PUB_ACK or p.type == MQTT_PUB_COM:
             if wait_ack:
                 values.append (float(p.epoc_time - e2e))
@@ -261,8 +264,8 @@ def compute_e2e_latency(pkts):
                 wait_ack = False
                 # logger.warning("[-] Sequence: {}".format("| -> |".join(sequence)))
                 # sequence = []
-            # else:
-            #     logger.warning("[-] Duplicate ACK")
+            else:
+                 logger.warning("[-] Duplicate ACK")
 
 
 
@@ -285,10 +288,11 @@ if __name__ == '__main__':
     sh.setFormatter(formatter)
     logger.addHandler(sh)
 
-    json_file = "all_sim/data_500_mqtt_with_70%_off/mqtt_capture_qos_1_payload_1280_num_req_500.json"
+    json_file = "ld30_ld50/ld50/mqtt_capture_qos_2_payload_512_num_req_100.json"
 
     demo = computeTime(json_file, 500, 1)
+    #demo.print_report()
     logger.debug("============== STATS ==============")
     compute_e2e_latency(demo.packets)
-    demo.get_packet_drop()
-    demo.get_tcp_overhead()
+    # demo.get_packet_drop()
+    # demo.get_tcp_overhead()
