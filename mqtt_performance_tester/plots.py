@@ -182,6 +182,7 @@ def clean_data(data):
 
 def plot_cvs_iteration(filename):
 
+
     payloads = dict()
     with open(filename) as csvfile:
         fieldnames = ['filename', 'values']
@@ -189,11 +190,16 @@ def plot_cvs_iteration(filename):
         for row in reader:
             payloads[row['filename']] = clean_data(row['values'])
 
-
-    info = filename.split("_")
-    num = int(info[1])
-    qos = int(info[7].replace(".csv", ""))
-    link_off = info[4]
+    try:
+        info = filename.split("_")
+        num = int(info[1])
+        qos = int(info[7].replace(".csv", ""))
+        link_off = info[4]
+    except:
+        print ("Please provide info for the simulation %s" %filename)
+        num = int(input("N. Iteration:"))
+        qos = int(input("Qos:"))
+        link_off = input("Link disruption:")
 
 
 
